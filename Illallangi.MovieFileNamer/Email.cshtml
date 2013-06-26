@@ -1,0 +1,26 @@
+﻿@model Illallangi.MovieFileNamer.Model.IResult
+
+<html>
+<head>
+    <title>Welcome to acme.com</title>
+</head>
+    <body>
+        <ul>
+            @foreach (var movie in Model.FailedMovies)
+            {
+                if (@movie.Value.Count > 0)
+                {
+                    <li>
+                        <a href="file://@Model.Directory/@movie.Key">@movie.Key</a>
+                        <ul>
+                            @foreach (var error in movie.Value)
+                            {
+                                <li>@error</li>
+                            }
+                        </ul>
+                    </li>
+                }
+            }
+        </ul>
+    </body>
+</html>
