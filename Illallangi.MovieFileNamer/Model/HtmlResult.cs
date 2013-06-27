@@ -18,9 +18,11 @@ namespace Illallangi.MovieFileNamer
 
         public string Html
         {
-            get 
+            get
             {
-                return this.currentHtml ?? (this.currentHtml = Razor.Parse(File.ReadAllText(this.Config.Template), this.Result));
+                return this.Result.HasErrors
+                           ? this.currentHtml ?? (this.currentHtml = Razor.Parse(File.ReadAllText(this.Config.Template), this.Result))
+                           : null;
             }
         }
 
