@@ -8,6 +8,7 @@ namespace Illallangi.MovieFileNamer.Model
         IDictionary<string, IList<string>> Movies { get; }
         IDictionary<string, IList<string>> PassedMovies { get; }
         IDictionary<string, IList<string>> FailedMovies { get; }
-        IEnumerable<string> Errors { get; } 
+        IEnumerable<string> Errors { get; }
+        bool HasErrors { get; }
     }
 }

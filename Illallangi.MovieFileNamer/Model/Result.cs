@@ -35,6 +35,11 @@ namespace Illallangi.MovieFileNamer.Model
             get { return this.Movies.SelectMany(movie => movie.Value); }
         }
 
+        public bool HasErrors
+        {
+            get { return this.Errors.Any(); }
+        }
+
         #endregion
 
         #region Methods
