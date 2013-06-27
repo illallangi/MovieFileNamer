@@ -71,9 +71,20 @@ namespace Illallangi.MovieFileNamer
                 var movie = results.Results.FirstOrDefault(f => f.title.Equals(Path.GetFileName(directory).GetTitle()))
                             ?? results.Results.FirstOrDefault();
 
-                foreach (var check in this.Checks.OrderBy(check => check.Priority))
+                foreach (var priority in this.Checks.Select(c => c.Priority).Distinct().OrderBy(i => i))
                 {
-                    if (!check.Passes(movie, directory, result))
+                    var pass = true;
+                    this.Logger.Debug("Executing level {0} checks", priority);
+                    foreach (var check in this.Checks.Where(check => priority == check.Priority))
+                    {
+                        this.Logger.Debug("Checking {0} with {1}", Path.GetFileName(directory), check.GetType());
+                        if (!check.Passes(movie, directory, result))
+                        {
+                            pass = false;
+                        }
+                    }
+
+                    if (!pass)
                     {
                         break;
                     }
