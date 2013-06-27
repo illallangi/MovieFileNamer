@@ -18,7 +18,7 @@
         {
             get
             {
-                return !this.GetFiles().Any();
+                return this.GetFiles().Any();
             }
         }
 

@@ -8,7 +8,7 @@ namespace Illallangi.MovieFileNamer.Checks
     {
         public override bool Passes(MovieDbResult entry, MovieDirectory directory, Result result)
         {
-            if (directory.HasFiles)
+            if (!directory.HasFiles)
             {
                 result.AddError(directory.GetFileName(), @"""{0}"" has no files;", directory.GetFileName());
                 return false;
