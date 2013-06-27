@@ -8,6 +8,11 @@ namespace Illallangi.MovieFileNamer.Checks
     {
         public bool Passes(MovieDbResult movie, string directory, Result result)
         {
+            if (null == movie)
+            {
+                return true;
+            }
+
             if (!movie.ToString().Equals(Path.GetFileName(directory), StringComparison.InvariantCultureIgnoreCase))
             {
                 result.AddError(Path.GetFileName(directory), @"""{0}"" should be ""{1}""", Path.GetFileName(directory), movie);

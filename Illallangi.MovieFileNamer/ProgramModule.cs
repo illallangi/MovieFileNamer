@@ -63,6 +63,10 @@ namespace Illallangi.MovieFileNamer
                 .To<SmtpClient>()
                 .InSingletonScope();
 
+            this.Bind<ISmtpClientConfig>()
+                .To<Config>()
+                .InSingletonScope();
+
             this.Bind(x => x.FromThisAssembly()
                 .SelectAllClasses()
                 .InheritedFromAny(typeof(ICheck))

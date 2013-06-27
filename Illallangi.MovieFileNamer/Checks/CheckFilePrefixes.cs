@@ -9,6 +9,11 @@ namespace Illallangi.MovieFileNamer.Checks
     {
         public bool Passes(MovieDbResult movie, string directory, Result result)
         {
+            if (null == movie)
+            {
+                return true;
+            }
+
             var good = true;
             foreach (var file in Directory.GetFiles(directory).Where(file =>
                 {

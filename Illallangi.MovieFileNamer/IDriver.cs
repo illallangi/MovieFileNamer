@@ -1,7 +1,9 @@
 ﻿namespace Illallangi.MovieFileNamer
 {
+    using System.Threading.Tasks;
+
     public interface IDriver
     {
-        void Execute();
+        ParallelLoopResult Execute();
     }
 }

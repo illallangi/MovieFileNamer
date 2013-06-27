@@ -5,7 +5,7 @@ using Ninject.Extensions.Logging;
 
 namespace Illallangi.MovieFileNamer
 {
-    public sealed class Config : IConfig, IHttpClientConfig
+    public sealed class Config : IConfig, IHttpClientConfig, ISmtpClientConfig
     {
         #region Fields
 
@@ -20,6 +20,8 @@ namespace Illallangi.MovieFileNamer
         private string currentDirectory;
         private string currentJsonPath;
         private string currentHtmlPath;
+        private string currentSmtpServer;
+        private string currentSmtpPort;
 
         private const string TEMPLATEKEY = @"Template";
         private const string FROMADDRESSKEY = @"FromAddress";
@@ -30,12 +32,15 @@ namespace Illallangi.MovieFileNamer
         private const string DIRECTORYKEY = @"Directory";
         private const string JSONPATHKEY = @"JsonPath";
         private const string HTMLPATHKEY = @"HtmlPath";
+        private const string SMTPSERVERKEY = @"SmtpServer";
+        private const string SMTPPORTKEY = @"SmtpPort";
 
         private const string TEMPLATEDEFAULT = @"Email.cshtml";
         private const string THEMOVIEDBAPIURIDEFAULT = @"https://api.themoviedb.org/3/search/movie?api_key={0}&query={1}&year={2}";
         private const string CACHEPATHDEFAULT = @"%temp%\Illallangi.MovieFileNamer";
         private const string JSONPATHDEFAULT = @"%temp%\Illallangi.MovieFileNamer.json";
         private const string HTMLPATHDEFAULT = @"%temp%\Illallangi.MovieFileNamer.html";
+        private const string SMTPPORTDEFAULT = @"25";
         
         #endregion
 
@@ -127,6 +132,27 @@ namespace Illallangi.MovieFileNamer
         public string HtmlPath
         {
             get { return this.currentHtmlPath ?? (this.currentHtmlPath = Environment.ExpandEnvironmentVariables(this.GetConfigValue(HTMLPATHKEY, HTMLPATHDEFAULT))); }
+        }
+
+        public string SmtpServer
+        {
+            get
+            {
+                return this.currentSmtpServer
+                       ?? (this.currentSmtpServer =
+                           this.GetConfigValue(SMTPSERVERKEY));
+            }
+        }
+
+        public int SmtpPort
+        {
+            get
+            {
+                return
+                    int.Parse(
+                        this.currentSmtpPort
+                        ?? (this.currentSmtpPort = this.GetConfigValue(SMTPPORTKEY, SMTPPORTDEFAULT)));
+            }
         }
 
         #endregion
