@@ -5,11 +5,11 @@ namespace Illallangi.MovieFileNamer.Checks
 {
     public sealed class CheckIfFoundInMovieDb : CheckBase
     {
-        public override bool Passes(MovieDbResult movie, string directory, Result result)
+        public override bool Passes(MovieDbResult entry, MovieDirectory directory, Result result)
         {
-            if (null == movie)
+            if (null == entry)
             {
-                result.AddError(Path.GetFileName(directory), @"""{0}"" not found in MovieDb", Path.GetFileName(directory));
+                result.AddError(directory.GetFileName(), @"""{0}"" not found in MovieDb", directory.GetFileName());
                 return false;
             }
 

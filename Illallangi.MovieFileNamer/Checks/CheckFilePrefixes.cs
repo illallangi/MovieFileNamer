@@ -7,16 +7,16 @@ namespace Illallangi.MovieFileNamer.Checks
 {
     public sealed class CheckFilePrefixes : CheckBase
     {
-        public override bool Passes(MovieDbResult movie, string directory, Result result)
+        public override bool Passes(MovieDbResult entry, MovieDirectory directory, Result result)
         {
             var good = true;
-            foreach (var file in Directory.GetFiles(directory).Where(file =>
+            foreach (var file in directory.GetFiles().Where(file =>
                 {
                     var fileName = Path.GetFileName(file);
-                    return fileName != null && !fileName.StartsWith(movie.FileName, StringComparison.InvariantCultureIgnoreCase);
+                    return fileName != null && !fileName.StartsWith(entry.FileName, StringComparison.InvariantCultureIgnoreCase);
                 }))
             {
-                result.AddError(Path.GetFileName(directory), @"""{0}"" should start with ""{1}""", Path.GetFileName(file), movie.FileName);
+                result.AddError(directory.GetFileName(), @"""{0}"" should start with ""{1}""", Path.GetFileName(file), entry.FileName);
                 good = false;
             }
             return good;

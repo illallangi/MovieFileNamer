@@ -4,7 +4,7 @@
 
     public abstract class CheckBase : ICheck
     {
-        public abstract bool Passes(MovieDbResult movie, string directory, Result result);
+        public abstract bool Passes(MovieDbResult entry, MovieDirectory directory, Result result);
 
         public virtual int Priority
         {

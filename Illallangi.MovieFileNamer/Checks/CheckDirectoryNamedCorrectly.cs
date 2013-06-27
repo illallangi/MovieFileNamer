@@ -6,11 +6,11 @@ namespace Illallangi.MovieFileNamer.Checks
 {
     public sealed class CheckDirectoryNamedCorrectly : CheckBase
     {
-        public override bool Passes(MovieDbResult movie, string directory, Result result)
+        public override bool Passes(MovieDbResult entry, MovieDirectory directory, Result result)
         {
-            if (!movie.ToString().Equals(Path.GetFileName(directory), StringComparison.InvariantCultureIgnoreCase))
+            if (!entry.ToString().Equals(directory.GetFileName(), StringComparison.InvariantCultureIgnoreCase))
             {
-                result.AddError(Path.GetFileName(directory), @"""{0}"" should be ""{1}""", Path.GetFileName(directory), movie);
+                result.AddError(directory.GetFileName(), @"""{0}"" should be ""{1}""", directory.GetFileName(), entry);
                 return false;
             }
 

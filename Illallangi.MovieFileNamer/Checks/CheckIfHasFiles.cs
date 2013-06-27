@@ -6,11 +6,11 @@ namespace Illallangi.MovieFileNamer.Checks
 {
     public sealed class CheckIfHasFiles : CheckBase
     {
-        public override bool Passes(MovieDbResult movie, string directory, Result result)
+        public override bool Passes(MovieDbResult entry, MovieDirectory directory, Result result)
         {
-            if (!Directory.GetFiles(directory).Any())
+            if (directory.HasFiles)
             {
-                result.AddError(Path.GetFileName(directory), @"""{0}"" has no files;", Path.GetFileName(directory));
+                result.AddError(directory.GetFileName(), @"""{0}"" has no files;", directory.GetFileName());
                 return false;
             }
 

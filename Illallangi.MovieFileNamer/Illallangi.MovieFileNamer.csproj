@@ -107,6 +107,7 @@
     <Compile Include="Checks\CheckDirectoryNamedCorrectly.cs" />
     <Compile Include="Checks\CheckIfHasNoDirectories.cs" />
     <Compile Include="Checks\CheckIfHasFiles.cs" />
+    <Compile Include="Model\MovieDirectory.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="ICheck.cs" />
     <Compile Include="IConfig.cs" />

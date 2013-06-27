@@ -40,16 +40,17 @@ namespace Illallangi.MovieFileNamer
                     Directory = this.Config.Directory,
                 };
     
-            foreach (var directory in Directory.EnumerateDirectories(this.Config.Directory))
+            foreach (var path in Directory.EnumerateDirectories(this.Config.Directory))
             {
+                var directory = new MovieDirectory(path);
                 this.Logger.Debug("Checking {0}", directory);
-                result.AddMovie(Path.GetFileName(directory));
+                result.AddMovie(directory.GetFileName());
                 
                 MovieDbResultCollection results;
                 var uri = string.Format(this.Config.TheMovieDbApiUri,
                                         this.Config.TheMovieDbApiKey,
-                                        HttpUtility.UrlEncode(Path.GetFileName(directory).GetTitle()),
-                                        HttpUtility.UrlEncode(Path.GetFileName(directory).GetYear()));
+                                        HttpUtility.UrlEncode(directory.GetFileName().GetTitle()),
+                                        HttpUtility.UrlEncode(directory.GetFileName().GetYear()));
                 var xml = string.Empty;
 
                 try
@@ -59,16 +60,16 @@ namespace Illallangi.MovieFileNamer
                 }
                 catch (Exception e)
                 {
-                    result.AddError(Path.GetFileName(directory),
+                    result.AddError(directory.GetFileName(),
                                     string.Format(@"""{0}"" encountered error ""{1}"" parsing {2}\r\n{3}",
-                                      Path.GetFileName(directory),
+                                      directory.GetFileName(),
                                       e.Message,
                                       uri,
                                       xml));
                     continue;
                 }
 
-                var movie = results.Results.FirstOrDefault(f => f.title.Equals(Path.GetFileName(directory).GetTitle()))
+                var movie = results.Results.FirstOrDefault(f => f.title.Equals(directory.GetFileName().GetTitle()))
                             ?? results.Results.FirstOrDefault();
 
                 foreach (var priority in this.Checks.Select(c => c.Priority).Distinct().OrderBy(i => i))
@@ -77,7 +78,7 @@ namespace Illallangi.MovieFileNamer
                     this.Logger.Debug("Executing level {0} checks", priority);
                     foreach (var check in this.Checks.Where(check => priority == check.Priority))
                     {
-                        this.Logger.Debug("Checking {0} with {1}", Path.GetFileName(directory), check.GetType());
+                        this.Logger.Debug("Checking {0} with {1}", directory.GetFileName(), check.GetType());
                         if (!check.Passes(movie, directory, result))
                         {
                             pass = false;

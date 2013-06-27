@@ -4,7 +4,7 @@ namespace Illallangi.MovieFileNamer
 {
     public interface ICheck
     {
-        bool Passes(MovieDbResult movie, string directory, Result result);
+        bool Passes(MovieDbResult entry, MovieDirectory directory, Result result);
         int Priority { get; }
     }
 }

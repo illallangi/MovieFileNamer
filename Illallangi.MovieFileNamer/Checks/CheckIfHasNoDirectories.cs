@@ -6,11 +6,11 @@ namespace Illallangi.MovieFileNamer.Checks
 {
     public sealed class CheckIfHasNoDirectories : CheckBase
     {
-        public override bool Passes(MovieDbResult movie, string directory, Result result)
+        public override bool Passes(MovieDbResult entry, MovieDirectory directory, Result result)
         {
-            if (0 != Directory.GetDirectories(directory).Count())
+            if (!directory.HasDirectories)
             {
-                result.AddError(Path.GetFileName(directory), @"""{0}"" has subdirectories;", Path.GetFileName(directory));
+                result.AddError(directory.GetFileName(), @"""{0}"" has subdirectories;", directory.GetFileName());
                 return false;
             }
 
