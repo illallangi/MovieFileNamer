@@ -11,5 +11,6 @@
         string JsonPath { get; }
         string HtmlPath { get; }
         string Subject { get; }
+        int Interval { get; }
     }
 }

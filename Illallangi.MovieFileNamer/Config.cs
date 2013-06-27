@@ -10,7 +10,7 @@ namespace Illallangi.MovieFileNamer
         #region Fields
 
         private readonly ILogger currentLogger;
-        
+
         private string currentTemplate;
         private string currentFromAddress;
         private string currentToAddress;
@@ -23,6 +23,7 @@ namespace Illallangi.MovieFileNamer
         private string currentSmtpServer;
         private string currentSmtpPort;
         private string currentSubject;
+        private string currentInterval;
 
         private const string TEMPLATEKEY = @"Template";
         private const string FROMADDRESSKEY = @"FromAddress";
@@ -36,6 +37,7 @@ namespace Illallangi.MovieFileNamer
         private const string SMTPSERVERKEY = @"SmtpServer";
         private const string SMTPPORTKEY = @"SmtpPort";
         private const string SUBJECTKEY = @"Subject";
+        private const string INTERVALKEY = @"Interval";
 
         private const string TEMPLATEDEFAULT = @"Email.cshtml";
         private const string THEMOVIEDBAPIURIDEFAULT = @"https://api.themoviedb.org/3/search/movie?api_key={0}&query={1}&year={2}";
@@ -44,11 +46,12 @@ namespace Illallangi.MovieFileNamer
         private const string HTMLPATHDEFAULT = @"%temp%\Illallangi.MovieFileNamer.html";
         private const string SMTPPORTDEFAULT = @"25";
         private const string SUBJECTDEFAULT = @"Errors detected in movie collection";
-        
+        private const string INTERVALDEFAULT = @"60";
+
         #endregion
 
         #region Constructor
-        
+
         public Config(ILogger logger)
         {
             this.currentLogger = logger;
@@ -59,23 +62,39 @@ namespace Illallangi.MovieFileNamer
 
         #region Methods
 
+        public static ConfigResult TryGetConfigValue(string key, out string result, string defaultValue = null)
+        {
+            if (!string.IsNullOrWhiteSpace(result = ConfigurationManager.AppSettings[key]))
+            {
+                return ConfigResult.ConfigValue;
+            }
+
+            if (!string.IsNullOrWhiteSpace(result = defaultValue))
+            {
+                return ConfigResult.DefaultValue;
+            }
+
+            return ConfigResult.NoValue;
+        }
+        
         private string GetConfigValue(string key, string defaultValue = null)
         {
             string result;
-            if (!string.IsNullOrWhiteSpace(result = ConfigurationManager.AppSettings[key]))
+
+            switch (Config.TryGetConfigValue(key, out result, defaultValue))
             {
-                this.Logger.Debug(@"Returning value from config for {0} of ""{1}""", key, result);
-                return result;
+                case ConfigResult.ConfigValue:
+                    this.Logger.Debug(@"Returning value from config for {0} of ""{1}""", key, result);
+                    break;
+                case ConfigResult.DefaultValue:
+                    this.Logger.Debug(@"Returning default value for {0} of ""{1}""", key, defaultValue);
+                    break;
+                case ConfigResult.NoValue:
+                    this.Logger.Error(@"No configured value found for {0}", key);
+                    throw new NoNullAllowedException(key);
             }
 
-            if (!string.IsNullOrWhiteSpace(defaultValue))
-            {
-                this.Logger.Debug(@"Returning default value for {0} of ""{1}""", key, defaultValue);
-                return defaultValue;
-            }
-
-            this.Logger.Error(@"No configured value found for {0}", key);
-            throw new NoNullAllowedException(key);
+            return result;
         }
 
         #endregion
@@ -99,7 +118,7 @@ namespace Illallangi.MovieFileNamer
 
         public string ToAddress
         {
-            get { return this.currentToAddress ?? (this.currentToAddress = this.GetConfigValue(TOADDRESSKEY)); }    
+            get { return this.currentToAddress ?? (this.currentToAddress = this.GetConfigValue(TOADDRESSKEY)); }
         }
 
         public string TheMovieDbApiKey
@@ -168,6 +187,26 @@ namespace Illallangi.MovieFileNamer
             }
         }
 
+        public int Interval
+        {
+            get
+            {
+                return
+                    int.Parse(
+                        this.currentInterval
+                        ?? (this.currentInterval = this.GetConfigValue(INTERVALKEY, INTERVALDEFAULT)));
+            }
+        }
+
         #endregion
+    }
+
+    public enum ConfigResult
+    {
+        ConfigValue,
+
+        DefaultValue,
+
+        NoValue
     }
 }
