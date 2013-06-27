@@ -1,9 +1,9 @@
 ﻿namespace Illallangi.MovieFileNamer
 {
+    using Ninject;
+
     using Quartz;
-    using Quartz.Collection;
     using Quartz.Impl;
-    using Quartz.Impl.Triggers;
 
     public sealed class ProgramService
     {
@@ -14,6 +14,8 @@
         private ITrigger currentTrigger;
 
         private IJobDetail currentJobDetail;
+
+        private IConfig currentConfig;
 
         public void Start()
         {
@@ -58,12 +60,21 @@
                                          .WithSimpleSchedule(
                                              x =>
                                              x.RepeatForever()
-                                              .WithIntervalInMinutes(1)
+                                              .WithIntervalInMinutes(this.Config.Interval)
                                               .WithMisfireHandlingInstructionIgnoreMisfires())
                                          .Build());
             }
         }
 
+        public IConfig Config
+        {
+            get
+            {
+                return this.currentConfig
+                       ?? (this.currentConfig =
+                           new StandardKernel(new ProgramModule<ProgramDriver>()).Get<IConfig>());
+            }
+        }
         public ISchedulerFactory SchedulerFactory
         {
             get
