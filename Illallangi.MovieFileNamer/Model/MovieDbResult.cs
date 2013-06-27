@@ -13,6 +13,7 @@ namespace Illallangi.MovieFileNamer.Model
                 .Replace(@":", string.Empty)
                 .Replace(@"?", string.Empty)
                 .Replace(@"!", string.Empty)
+                .Replace(@"*", string.Empty)
                 .Replace(@"³", " 3")
                 .Replace(@"/", @" ")
                 .Replace(@"é", @"e")
