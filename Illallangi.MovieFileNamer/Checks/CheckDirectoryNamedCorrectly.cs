@@ -16,5 +16,13 @@ namespace Illallangi.MovieFileNamer.Checks
 
             return true;
         }
+
+        public override int Priority
+        {
+            get
+            {
+                return 10;
+            }
+        }
     }
 }
