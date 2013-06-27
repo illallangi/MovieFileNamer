@@ -2,6 +2,8 @@
 
 namespace Illallangi.MovieFileNamer.Outputs
 {
+    using System.IO;
+
     public sealed class SmtpOutput : IOutput
     {
         #region Fields
@@ -30,7 +32,10 @@ namespace Illallangi.MovieFileNamer.Outputs
 
         public void Write()
         {
-            this.SmtpClient.SendEmail(this.Config.FromAddress, this.Config.ToAddress, "Welcome to our site!", this.HtmlResult.Html);
+            if (null != this.HtmlResult.Html)
+            {
+                this.SmtpClient.SendEmail(this.Config.FromAddress, this.Config.ToAddress, this.Config.Subject, this.HtmlResult.Html);
+            }
         }
 
         #endregion

@@ -29,7 +29,11 @@ namespace Illallangi.MovieFileNamer.Outputs
 
         public void Write()
         {
-            File.WriteAllText(this.Config.HtmlPath, this.HtmlResult.Html);
+            File.Delete(this.Config.HtmlPath);
+            if (null != this.HtmlResult.Html)
+            {
+                File.WriteAllText(this.Config.HtmlPath, this.HtmlResult.Html);
+            }
         }
 
         #endregion
