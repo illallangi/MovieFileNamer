@@ -45,7 +45,7 @@
 
         public IEnumerable<string> GetFiles()
         {
-            return Directory.GetFiles(this.Path).Where(f => !this.ExcludeFiles.Contains(f, StringComparer.InvariantCultureIgnoreCase));
+            return Directory.GetFiles(this.Path).Where(f => !this.ExcludeFiles.Contains(System.IO.Path.GetFileName(f), StringComparer.InvariantCultureIgnoreCase));
         }
 
         protected IEnumerable<string> ExcludeFiles
