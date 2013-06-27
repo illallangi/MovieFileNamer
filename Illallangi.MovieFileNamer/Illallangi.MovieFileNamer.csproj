@@ -106,6 +106,7 @@
     <Compile Include="Checks\CheckFilePrefixes.cs" />
     <Compile Include="Checks\CheckDirectoryNamedCorrectly.cs" />
     <Compile Include="Checks\CheckIfHasNoDirectories.cs" />
+    <Compile Include="Checks\CheckIfHasFiles.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="ICheck.cs" />
     <Compile Include="IConfig.cs" />
