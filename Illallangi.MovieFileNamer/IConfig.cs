@@ -10,5 +10,6 @@
         string Directory { get; }
         string JsonPath { get; }
         string HtmlPath { get; }
+        string Subject { get; }
     }
 }

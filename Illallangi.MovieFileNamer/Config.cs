@@ -22,6 +22,7 @@ namespace Illallangi.MovieFileNamer
         private string currentHtmlPath;
         private string currentSmtpServer;
         private string currentSmtpPort;
+        private string currentSubject;
 
         private const string TEMPLATEKEY = @"Template";
         private const string FROMADDRESSKEY = @"FromAddress";
@@ -34,6 +35,7 @@ namespace Illallangi.MovieFileNamer
         private const string HTMLPATHKEY = @"HtmlPath";
         private const string SMTPSERVERKEY = @"SmtpServer";
         private const string SMTPPORTKEY = @"SmtpPort";
+        private const string SUBJECTKEY = @"Subject";
 
         private const string TEMPLATEDEFAULT = @"Email.cshtml";
         private const string THEMOVIEDBAPIURIDEFAULT = @"https://api.themoviedb.org/3/search/movie?api_key={0}&query={1}&year={2}";
@@ -41,6 +43,7 @@ namespace Illallangi.MovieFileNamer
         private const string JSONPATHDEFAULT = @"%temp%\Illallangi.MovieFileNamer.json";
         private const string HTMLPATHDEFAULT = @"%temp%\Illallangi.MovieFileNamer.html";
         private const string SMTPPORTDEFAULT = @"25";
+        private const string SUBJECTDEFAULT = @"Errors detected in movie collection";
         
         #endregion
 
@@ -152,6 +155,16 @@ namespace Illallangi.MovieFileNamer
                     int.Parse(
                         this.currentSmtpPort
                         ?? (this.currentSmtpPort = this.GetConfigValue(SMTPPORTKEY, SMTPPORTDEFAULT)));
+            }
+        }
+
+        public string Subject
+        {
+            get
+            {
+                return this.currentSubject
+                       ?? (this.currentSubject =
+                           this.GetConfigValue(SUBJECTKEY, SUBJECTDEFAULT));
             }
         }
 
