@@ -1,0 +1,165 @@
+<?define Manufacturer="Illallangi Enterprises" ?>
+<?define AppName="Movie File Namer"?>
+<?define Version="1.0.0.0"?>
+<?define ProductId="{E18D0D29-5A0E-4569-9E1D-43D0AB5E63D3}" ?>
+<?define UpgradeCode="{853A83E1-DC3E-4DD7-AC39-240243C2EABC}" ?>
+<?define src="..\Illallangi.MovieFileNamer" ?>
+<?define bin="$(var.src)\bin\debug" ?>
+<Wix xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Name="$(var.AppName) $(var.Version)"
+           Manufacturer="$(var.Manufacturer)"
+           Version="$(var.Version)"
+           Id="$(var.ProductId)"
+           UpgradeCode="$(var.UpgradeCode)"
+           Language="1033"
+           Codepage="1252" >
+
+    <Package InstallerVersion="200" Compressed="yes" Id="*" />
+    <Media Id="1" Cabinet="package.cab" EmbedCab="yes" />
+
+    <Upgrade Id="$(var.UpgradeCode)">
+      <UpgradeVersion Minimum="$(var.Version)"
+                      IncludeMinimum="no"
+                      OnlyDetect="yes"
+                      Language="1033"
+                      Property="NEWPRODUCTFOUND"/>
+
+      <UpgradeVersion Maximum="$(var.Version)"
+                      IncludeMaximum="no"
+                      OnlyDetect="no"
+                      Language="1033"
+                      Property="OLDPRODUCTFOUND"/>
+    </Upgrade>
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Component Id="Empty" Guid="" />
+      <Directory Id="ProgramFilesFolder" >
+        <Directory Id="ProgramFilesManufacturerFolder" Name="$(var.Manufacturer)">
+          <Directory Id="SOFTWAREDIR" Name="$(var.AppName) $(var.Version)">
+            <Directory Id="RuntimeFolder" Name="runtime" />
+          </Directory>
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <Icon Id="favicon.ico" SourceFile="$(var.src)\favicon.ico" />
+    <Property Id="ALLUSERS" Value="1" />
+    <Property Id="ARPPRODUCTICON" Value="favicon.ico" />
+    <Property Id="ARPNOMODIFY" Value="1" />
+    <Property Id="LAUNCHFLUX" Value="1" />
+
+    <Feature Id='Complete' Level='1' Title='$(var.AppName)'>
+      <Component Id="IllallangiMovieFileNamerExeComponent" Directory="SOFTWAREDIR">
+        <File Id="IllallangiMovieFileNamerExeFile" KeyPath="yes" Source="$(var.bin)\Illallangi.MovieFileNamer.exe" />
+        <File Id="IllallangiMovieFileNamerExeConfigFile" Source="$(var.bin)\Illallangi.MovieFileNamer.exe.config" />
+        <File Id="EmailCshtmlFile" Source="$(var.bin)\Email.cshtml" />
+        <ServiceInstall Id="IllallangiMovieFileNamerExeServiceInstall"
+                        Type="ownProcess"
+                        Name="Illallangi.MovieFileNamer"
+                        DisplayName="Illallangi Movie File Namer" 
+                        Start="auto"
+                        ErrorControl="normal"
+                        Description="Illallangi Enterprises Movie File Namer Service" />
+        <ServiceControl Id="IllallangiMovieFileNamerExeServiceControl"
+                        Start="install"
+                        Stop="both"
+                        Remove="uninstall"
+                        Name="Illallangi.MovieFileNamer"
+                        Wait="no" />
+      </Component>
+      <Component Id="IllallangiFileBackedObjectDllComponent" Directory="SOFTWAREDIR">
+        <File Id="IllallangiFileBackedObjectDllFile" KeyPath="yes" Source="$(var.bin)\Illallangi.FileBackedObject.dll" />
+      </Component>
+      <Component Id="IllallangiHttpClientDllComponent" Directory="SOFTWAREDIR">
+        <File Id="IllallangiHttpClientDllFile" KeyPath="yes" Source="$(var.bin)\Illallangi.HttpClient.dll" />
+      </Component>
+      <Component Id="IllallangiNullLoggerDllComponent" Directory="SOFTWAREDIR">
+        <File Id="IllallangiNullLoggerDllFile" KeyPath="yes" Source="$(var.bin)\Illallangi.NullLogger.dll" />
+      </Component>
+      <Component Id="IllallangiSmtpClientDllComponent" Directory="SOFTWAREDIR">
+        <File Id="IllallangiSmtpClientDllFile" KeyPath="yes" Source="$(var.bin)\Illallangi.SmtpClient.dll" />
+      </Component>
+      <Component Id="IllallangiStringExtensionsDllComponent" Directory="SOFTWAREDIR">
+        <File Id="IllallangiStringExtensionsDllFile" KeyPath="yes" Source="$(var.bin)\Illallangi.StringExtensions.dll" />
+      </Component>
+      <Component Id="log4netDllComponent" Directory="SOFTWAREDIR">
+        <File Id="log4netDllFile" KeyPath="yes" Source="$(var.bin)\log4net.dll" />
+        <File Id="log4netXmlFile" Source="$(var.bin)\log4net.xml" />
+      </Component>
+      <Component Id="NinjectDllComponent" Directory="SOFTWAREDIR">
+        <File Id="NinjectDllFile" KeyPath="yes" Source="$(var.bin)\Ninject.dll" />
+        <File Id="NinjectXmlFile" Source="$(var.bin)\Ninject.xml" />
+      </Component>
+      <Component Id="NinjectExtensionsLoggingDllComponent" Directory="SOFTWAREDIR">
+        <File Id="NinjectExtensionsLoggingDllFile" KeyPath="yes" Source="$(var.bin)\Ninject.Extensions.Logging.dll" />
+        <File Id="NinjectExtensionsLoggingXmlFile" Source="$(var.bin)\Ninject.Extensions.Logging.xml" />
+      </Component>
+      <Component Id="NinjectExtensionsLoggingLog4NetDllComponent" Directory="SOFTWAREDIR">
+        <File Id="NinjectExtensionsLoggingLog4NetDllFile" KeyPath="yes" Source="$(var.bin)\Ninject.Extensions.Logging.Log4Net.dll" />
+        <File Id="NinjectExtensionsLoggingLog4NetXmlFile" Source="$(var.bin)\Ninject.Extensions.Logging.Log4Net.xml" />
+      </Component>
+      <Component Id="NinjectExtensionsConventionsDllComponent" Directory="SOFTWAREDIR">
+        <File Id="NinjectExtensionsConventionsDllFile" KeyPath="yes" Source="$(var.bin)\Ninject.Extensions.Conventions.dll" />
+        <File Id="NinjectExtensionsConventionsXmlFile" Source="$(var.bin)\Ninject.Extensions.Conventions.xml" />
+      </Component>
+      <Component Id="QuartzDllComponent" Directory="SOFTWAREDIR">
+        <File Id="QuartzDllFile" KeyPath="yes" Source="$(var.bin)\Quartz.dll" />
+        <File Id="QuartzXmlFile" Source="$(var.bin)\Quartz.xml" />
+      </Component>
+      <Component Id="CommonLoggingDllComponent" Directory="SOFTWAREDIR">
+        <File Id="CommonLoggingDllFile" KeyPath="yes" Source="$(var.bin)\Common.Logging.dll" />
+        <File Id="CommonLoggingXmlFile" Source="$(var.bin)\Common.Logging.xml" />
+      </Component>
+      <Component Id="RazorEngineDllComponent" Directory="SOFTWAREDIR">
+        <File Id="RazorEngineDllFile" KeyPath="yes" Source="$(var.bin)\RazorEngine.dll" />
+        <File Id="RazorEngineXmlFile" Source="$(var.bin)\RazorEngine.xml" />
+      </Component>
+      <Component Id="SystemWebRazorDllComponent" Directory="SOFTWAREDIR">
+        <File Id="SystemWebRazorDllFile" KeyPath="yes" Source="$(var.bin)\System.Web.Razor.dll" />
+        <File Id="SystemWebRazorXmlFile" Source="$(var.bin)\System.Web.Razor.xml" />
+      </Component>
+      <Component Id="TopShelfDllComponent" Directory="SOFTWAREDIR">
+        <File Id="TopShelfDllFile" KeyPath="yes" Source="$(var.bin)\Topshelf.dll" />
+      </Component>
+      <Component Id="TopShelfLog4NetDllComponent" Directory="SOFTWAREDIR">
+        <File Id="TopShelfLog4NetDllFile" KeyPath="yes" Source="$(var.bin)\Topshelf.Log4Net.dll" />
+      </Component>
+
+      <ComponentRef Id='Empty' />
+    </Feature>
+
+    <UI Id="Minimal">
+      <TextStyle Id="WixUI_Font_Normal" FaceName="Tahoma" Size="8" />
+      <TextStyle Id="WixUI_Font_Bigger" FaceName="Tahoma" Size="12" />
+      <TextStyle Id="WixUI_Font_Title" FaceName="Tahoma" Size="9" Bold="yes" />
+      <Property Id="DefaultUIFont" Value="WixUI_Font_Normal" />
+      <Property Id="WixUI_Mode" Value="Minimal" />
+      <DialogRef Id="ErrorDlg" />
+      <DialogRef Id="FatalError" />
+      <DialogRef Id="FilesInUse" />
+      <DialogRef Id="MsiRMFilesInUse" />
+      <DialogRef Id="PrepareDlg" />
+      <DialogRef Id="ProgressDlg" />
+      <DialogRef Id="ResumeDlg" />
+      <DialogRef Id="UserExit" />
+      <DialogRef Id="WelcomeDlg" />
+      <DialogRef Id="VerifyReadyDlg" />
+      <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="VerifyReadyDlg">1</Publish>
+      <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg">1</Publish>
+      <Publish Dialog='ExitDialog' Control='Finish' Event='EndDialog' Value='Return'>1</Publish>
+    </UI>
+
+    <UIRef Id="WixUI_Common" />
+
+    <CustomAction Id="PreventDowngrading" Error="Newer version already installed." />
+
+    <InstallExecuteSequence>
+      <RemoveExistingProducts After="InstallInitialize" />
+      <Custom Action="PreventDowngrading" After="FindRelatedProducts">NEWPRODUCTFOUND</Custom>
+    </InstallExecuteSequence>
+
+    <InstallUISequence>
+      <Custom Action="PreventDowngrading" After="FindRelatedProducts">NEWPRODUCTFOUND</Custom>
+    </InstallUISequence>
+  </Product>
+</Wix>

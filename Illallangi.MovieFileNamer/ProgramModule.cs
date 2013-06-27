@@ -5,32 +5,8 @@ using Ninject.Extensions.Conventions;
 
 namespace Illallangi.MovieFileNamer
 {
-    public sealed class ProgramModule<T>: NinjectModule where T: IDriver
+    public sealed class ProgramModule<T> : NinjectModule where T : IDriver
     {
-        #region Fields
-
-        private readonly string[] currentArguments;
-
-        #endregion
-
-        #region Constructor
-
-        public ProgramModule(string[] arguments)
-        {
-            this.currentArguments = arguments;
-        }
-
-        #endregion
-
-        #region Properties
-
-        public string[] Arguments
-        {
-            get { return this.currentArguments; }
-        }
-
-        #endregion
-
         #region Methods
 
         public override void Load()
@@ -39,9 +15,9 @@ namespace Illallangi.MovieFileNamer
                 .To<Config>()
                 .InSingletonScope();
 
-              this.Bind<IResultSource>()
-                .To<ResultSource>()
-                .InSingletonScope();
+            this.Bind<IResultSource>()
+              .To<ResultSource>()
+              .InSingletonScope();
 
             this.Bind<IHttpClientConfig>()
                 .To<Config>()
@@ -81,8 +57,7 @@ namespace Illallangi.MovieFileNamer
 
             this.Bind<IDriver>()
                 .To<T>()
-                .InSingletonScope()
-                .WithConstructorArgument("arguments", this.Arguments);
+                .InSingletonScope();
         }
 
         #endregion

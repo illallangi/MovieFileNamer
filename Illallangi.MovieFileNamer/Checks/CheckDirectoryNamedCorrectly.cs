@@ -4,20 +4,16 @@ using Illallangi.MovieFileNamer.Model;
 
 namespace Illallangi.MovieFileNamer.Checks
 {
-    public sealed class CheckDirectoryNamedCorrectly : ICheck
+    public sealed class CheckDirectoryNamedCorrectly : CheckBase
     {
-        public bool Passes(MovieDbResult movie, string directory, Result result)
+        public override bool Passes(MovieDbResult movie, string directory, Result result)
         {
-            if (null == movie)
-            {
-                return true;
-            }
-
             if (!movie.ToString().Equals(Path.GetFileName(directory), StringComparison.InvariantCultureIgnoreCase))
             {
                 result.AddError(Path.GetFileName(directory), @"""{0}"" should be ""{1}""", Path.GetFileName(directory), movie);
                 return false;
             }
+
             return true;
         }
     }

@@ -41,7 +41,8 @@
             get
             {
                 return this.currentJobDetail
-                       ?? (this.currentJobDetail = JobBuilder.Create<ProgramJob>().WithIdentity("job1", "group1").Build());
+                       ?? (this.currentJobDetail =
+                           JobBuilder.Create<ProgramJob>().WithIdentity("job1", "group1").Build());
             }
         }
 
@@ -50,7 +51,16 @@
             get
             {
                 return this.currentTrigger
-                       ?? (this.currentTrigger = TriggerBuilder.Create().WithIdentity("trigger1", "group1").StartNow().WithSimpleSchedule(x => x.RepeatForever().WithIntervalInMinutes(1)).Build());
+                       ?? (this.currentTrigger =
+                           TriggerBuilder.Create()
+                                         .WithIdentity("trigger1", "group1")
+                                         .StartNow()
+                                         .WithSimpleSchedule(
+                                             x =>
+                                             x.RepeatForever()
+                                              .WithIntervalInMinutes(1)
+                                              .WithMisfireHandlingInstructionIgnoreMisfires())
+                                         .Build());
             }
         }
 

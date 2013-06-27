@@ -69,9 +69,9 @@ namespace Illallangi.MovieFileNamer
                 }
 
                 var movie = results.Results.FirstOrDefault(f => f.title.Equals(Path.GetFileName(directory).GetTitle()))
-                             ?? results.Results.FirstOrDefault();
+                            ?? results.Results.FirstOrDefault();
 
-                foreach (var check in this.Checks)
+                foreach (var check in this.Checks.OrderBy(check => check.Priority))
                 {
                     if (!check.Passes(movie, directory, result))
                     {

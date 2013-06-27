@@ -4,15 +4,16 @@ using Illallangi.MovieFileNamer.Model;
 
 namespace Illallangi.MovieFileNamer.Checks
 {
-    public sealed class CheckIfHasNoDirectories : ICheck
+    public sealed class CheckIfHasNoDirectories : CheckBase
     {
-        public bool Passes(MovieDbResult movie, string directory, Result result)
+        public override bool Passes(MovieDbResult movie, string directory, Result result)
         {
             if (0 != Directory.GetDirectories(directory).Count())
             {
                 result.AddError(Path.GetFileName(directory), @"""{0}"" has subdirectories;", Path.GetFileName(directory));
                 return false;
             }
+
             return true;
         }
     }

@@ -5,15 +5,10 @@ using Illallangi.MovieFileNamer.Model;
 
 namespace Illallangi.MovieFileNamer.Checks
 {
-    public sealed class CheckFilePrefixes : ICheck
+    public sealed class CheckFilePrefixes : CheckBase
     {
-        public bool Passes(MovieDbResult movie, string directory, Result result)
+        public override bool Passes(MovieDbResult movie, string directory, Result result)
         {
-            if (null == movie)
-            {
-                return true;
-            }
-
             var good = true;
             foreach (var file in Directory.GetFiles(directory).Where(file =>
                 {
