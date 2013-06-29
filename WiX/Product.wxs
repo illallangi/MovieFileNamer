@@ -5,7 +5,10 @@
 <?define UpgradeCode="{853A83E1-DC3E-4DD7-AC39-240243C2EABC}" ?>
 <?define src="..\Illallangi.MovieFileNamer" ?>
 <?define bin="$(var.src)\bin\debug" ?>
-<Wix xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/wix/2006/wi">
+<Wix xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension" 
+     xmlns="http://schemas.microsoft.com/wix/2006/wi">
   <Product Name="$(var.AppName) $(var.Version)"
            Manufacturer="$(var.Manufacturer)"
            Version="$(var.Version)"
@@ -46,17 +49,22 @@
     <Property Id="ALLUSERS" Value="1" />
     <Property Id="ARPPRODUCTICON" Value="favicon.ico" />
     <Property Id="ARPNOMODIFY" Value="1" />
-    <Property Id="LAUNCHFLUX" Value="1" />
+    <Property Id="ARPNOREPAIR" Value="1" />
 
     <Feature Id='Complete' Level='1' Title='$(var.AppName)'>
       <Component Id="IllallangiMovieFileNamerExeComponent" Directory="SOFTWAREDIR">
         <File Id="IllallangiMovieFileNamerExeFile" KeyPath="yes" Source="$(var.bin)\Illallangi.MovieFileNamer.exe" />
         <File Id="IllallangiMovieFileNamerExeConfigFile" Source="$(var.bin)\Illallangi.MovieFileNamer.exe.config" />
         <File Id="EmailCshtmlFile" Source="$(var.bin)\Email.cshtml" />
+        <util:XmlFile Id="SetTHEMOVIEDBAPIKEY"
+                          Action="setValue"
+                          ElementPath="//configuration/appSettings/add[\[]@key='TheMovieDbApiKey'[\]]/@value"
+                          Value="[THEMOVIEDBAPIKEY]"
+                          File="[#IllallangiMovieFileNamerExeConfigFile]" />
         <ServiceInstall Id="IllallangiMovieFileNamerExeServiceInstall"
                         Type="ownProcess"
                         Name="Illallangi.MovieFileNamer"
-                        DisplayName="Illallangi Movie File Namer" 
+                        DisplayName="Illallangi Movie File Namer"
                         Start="auto"
                         ErrorControl="normal"
                         Description="Illallangi Enterprises Movie File Namer Service" />
@@ -143,14 +151,19 @@
       <DialogRef Id="ResumeDlg" />
       <DialogRef Id="UserExit" />
       <DialogRef Id="WelcomeDlg" />
+      <DialogRef Id="TheMovieDbApiKeyDlg" />
       <DialogRef Id="VerifyReadyDlg" />
-      <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="VerifyReadyDlg">1</Publish>
-      <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg">1</Publish>
+      <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="TheMovieDbApiKeyDlg">1</Publish>
+      <Publish Dialog="TheMovieDbApiKeyDlg" Control="Next" Event="NewDialog" Value="VerifyReadyDlg">1</Publish>
+      <Publish Dialog="TheMovieDbApiKeyDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg">1</Publish>
+      <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="TheMovieDbApiKeyDlg">1</Publish>
       <Publish Dialog='ExitDialog' Control='Finish' Event='EndDialog' Value='Return'>1</Publish>
     </UI>
 
+    <?include $(sys.CURRENTDIR)TheMovieDbApiKeyDlg.wxi ?>
+    
     <UIRef Id="WixUI_Common" />
-
+    
     <CustomAction Id="PreventDowngrading" Error="Newer version already installed." />
 
     <InstallExecuteSequence>
