@@ -39,13 +39,13 @@ namespace Illallangi.MovieFileNamer
                 {
                     Directory = this.Config.Directory,
                 };
-    
+
             foreach (var path in Directory.EnumerateDirectories(this.Config.Directory))
             {
                 var directory = new MovieDirectory(path);
                 this.Logger.Debug("Checking {0}", directory);
                 result.AddMovie(directory.GetFileName());
-                
+
                 MovieDbResultCollection results;
                 var uri = string.Format(this.Config.TheMovieDbApiUri,
                                         this.Config.TheMovieDbApiKey,
@@ -60,6 +60,12 @@ namespace Illallangi.MovieFileNamer
                 }
                 catch (Exception e)
                 {
+                    this.Logger.Info(@"""{0}"" encountered error ""{1}"" parsing {2}\r\n{3}",
+                                      directory.GetFileName(),
+                                      e.Message,
+                                      uri,
+                                      xml);
+
                     result.AddError(directory.GetFileName(),
                                     string.Format(@"""{0}"" encountered error ""{1}"" parsing {2}\r\n{3}",
                                       directory.GetFileName(),
