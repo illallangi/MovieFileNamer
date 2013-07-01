@@ -121,6 +121,7 @@
     <Compile Include="Model\HtmlResult.cs" />
     <Compile Include="IHtmlResult.cs" />
     <Compile Include="Outputs\ConsoleOutput.cs" />
+    <Compile Include="Outputs\BaseOutput.cs" />
     <Compile Include="Outputs\JsonOutput.cs" />
     <Compile Include="Outputs\HtmlOutput.cs" />
     <Compile Include="ProgramDriver.cs" />

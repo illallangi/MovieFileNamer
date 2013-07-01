@@ -1,11 +1,66 @@
 ﻿using System;
 using System.Configuration;
+using System.Collections.Generic;
 using System.Data;
 using Ninject.Extensions.Logging;
 
 namespace Illallangi.MovieFileNamer
 {
-    public sealed class MovieFileNamerConfiguration : ConfigurationSection, IConfig, IHttpClientConfig, ISmtpClientConfig
+    public interface IDirectory
+    {
+        string Path { get; }
+        string Name { get; }
+    }
+
+    public sealed class DirectoryConfigurationElement : ConfigurationElement, IDirectory
+    {
+        [ConfigurationProperty("Path", IsRequired = true)]
+        public string Path
+        {
+            get { return (String)this["Path"]; }
+            set { this["Path"] = value; }
+        }
+
+        [ConfigurationProperty("Name")]
+        public string Name
+        {
+            get { return (String)(this["Name"] ?? System.IO.Path.GetFileName(this.Path)); }
+            set { this["Name"] = value; }
+        }
+    }
+
+    public sealed class DirectoryConfigurationElementCollection : ConfigurationElementCollection
+    {
+        public DirectoryConfigurationElement this[int index]
+        {
+            get
+            {
+                return base.BaseGet(index) as DirectoryConfigurationElement;
+            }
+            set
+            {
+                if (base.BaseGet(index) != null)
+                {
+                    base.BaseRemoveAt(index);
+                }
+                this.BaseAdd(index, value);
+            }
+        }
+        protected
+            override System.Configuration.ConfigurationElement CreateNewElement()
+        {
+            return new DirectoryConfigurationElement();
+        }
+
+        protected override object GetElementKey(
+            System.Configuration.ConfigurationElement element)
+        {
+            return ((DirectoryConfigurationElement)element).Path;
+        }
+
+    }
+
+    public sealed class MovieFileNamerConfiguration : ConfigurationSection, IConfig
     {
         public static MovieFileNamerConfiguration GetConfig()
         {
@@ -16,7 +71,27 @@ namespace Illallangi.MovieFileNamer
             }
             return c;
         }
-        
+
+        public IEnumerable<IDirectory> Directories
+        {
+            get
+            {
+                foreach (var d in this.DirectoryCollection)
+                {
+                    yield return (IDirectory)d;
+                }
+            }
+        }
+        [System.Configuration.ConfigurationProperty("Directories")]
+        public DirectoryConfigurationElementCollection DirectoryCollection
+        {
+            get
+            {
+                return (DirectoryConfigurationElementCollection)this["Directories"] ??
+                   new DirectoryConfigurationElementCollection();
+            }
+        }
+
         [ConfigurationProperty("Template", DefaultValue = "Email.cshtml")]
         public string Template
         {
@@ -59,7 +134,7 @@ namespace Illallangi.MovieFileNamer
             set { this["Directory"] = value; }
         }
 
-        [ConfigurationProperty("JsonPath", DefaultValue =  @"%temp%\Illallangi.MovieFileNamer.json")]
+        [ConfigurationProperty("JsonPath", DefaultValue = @"%temp%\Illallangi.MovieFileNamer.json")]
         public string JsonPath
         {
             get { return Environment.ExpandEnvironmentVariables((String)this["JsonPath"]); }
@@ -104,8 +179,8 @@ namespace Illallangi.MovieFileNamer
         [ConfigurationProperty("SmtpServer", IsRequired = true)]
         public string SmtpServer
         {
-            get 
-            { 
+            get
+            {
                 var result = (String)this["SmtpServer"];
                 return result;
             }

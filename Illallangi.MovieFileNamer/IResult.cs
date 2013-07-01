@@ -4,6 +4,7 @@ namespace Illallangi.MovieFileNamer.Model
 {
     public interface IResult
     {
+        string Name { get; set; }
         string Directory { get; set; }
         IDictionary<string, IList<string>> Movies { get; }
         IDictionary<string, IList<string>> PassedMovies { get; }

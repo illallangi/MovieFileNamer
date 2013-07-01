@@ -1,62 +1,31 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using Ninject.Extensions.Logging;
 
 namespace Illallangi.MovieFileNamer.Outputs
 {
-    public sealed class HtmlOutput : IOutput
+    public sealed class HtmlOutput : BaseOutput<HtmlResultCollection, IHtmlResult>
     {
-        #region Fields
-
-        private readonly ILogger currentLogger;
-        private readonly IConfig currentConfig;
-        private readonly IHtmlResult currentHtmlResult;
-
-        #endregion
-
         #region Constructor
 
-        public HtmlOutput(ILogger logger, IConfig config, IHtmlResult htmlResult)
+        public HtmlOutput(ILogger logger, IConfig config, HtmlResultCollection htmlResults)
+            : base(logger, config, htmlResults)
         {
-            this.currentLogger = logger;
-            this.currentConfig = config;
-            this.currentHtmlResult = htmlResult;
-            this.Logger.Debug("Constructor Complete");
         }
 
         #endregion
 
         #region Methods
 
-        public void Write()
+        public override void Write()
         {
-            if (File.Exists(this.Config.HtmlPath))
+            foreach (var result in this.Results)
             {
-                File.Delete(this.Config.HtmlPath);
+                if (null != result.Html)
+                {
+                    File.WriteAllText(string.Format(this.Config.HtmlPath, result.Name), result.Html);
+                }
             }
-
-            if (null != this.HtmlResult.Html)
-            {
-                File.WriteAllText(this.Config.HtmlPath, this.HtmlResult.Html);
-            }
-        }
-
-        #endregion
-
-        #region Properties
-
-        private ILogger Logger
-        {
-            get { return this.currentLogger; }
-        }
-
-        private IHtmlResult HtmlResult
-        {
-            get { return this.currentHtmlResult; }
-        }
-
-        private IConfig Config
-        {
-            get { return this.currentConfig; }
         }
 
         #endregion

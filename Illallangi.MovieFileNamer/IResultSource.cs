@@ -1,9 +1,15 @@
-﻿using Illallangi.MovieFileNamer.Model;
+﻿using System.Collections.Generic;
+using Illallangi.MovieFileNamer.Model;
 
 namespace Illallangi.MovieFileNamer
 {
     public interface IResultSource
     {
-        IResult Get();
+        ResultCollection Get();
+    }
+
+    public interface IHtmlResultSource
+    {
+        HtmlResultCollection Get();
     }
 }

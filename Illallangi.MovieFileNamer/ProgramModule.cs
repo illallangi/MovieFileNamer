@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System.Collections.Generic;
+using System.Configuration;
 using Illallangi.MovieFileNamer.Model;
 using Ninject;
 using Ninject.Modules;
@@ -20,20 +21,24 @@ namespace Illallangi.MovieFileNamer
               .To<ResultSource>()
               .InSingletonScope();
 
+            this.Bind<IHtmlResultSource>()
+              .To<HtmlResultSource>()
+              .InSingletonScope();
+
             this.Bind<IHttpClientConfig>()
                 .To<MovieFileNamerConfiguration>()
                 .InSingletonScope();
 
-            this.Bind<IHtmlResult>()
-                .To<HtmlResult>()
+            this.Bind<ResultCollection>()
+                .ToMethod(x => x.Kernel.Get<IResultSource>().Get())
                 .InSingletonScope();
 
             this.Bind<IHttpClient>()
                 .To<HttpClient>()
                 .InSingletonScope();
 
-            this.Bind<IResult>()
-                .ToMethod(x => x.Kernel.Get<IResultSource>().Get())
+            this.Bind<HtmlResultCollection>()
+                .ToMethod(x => x.Kernel.Get<IHtmlResultSource>().Get())
                 .InSingletonScope();
 
             this.Bind<ISmtpClient>()

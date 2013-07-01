@@ -15,6 +15,8 @@ namespace Illallangi.MovieFileNamer.Model
 
         public string Directory { get; set; }
 
+        public string Name { get; set; }
+
         public IDictionary<string, IList<string>> Movies
         {
             get { return this.currentMovies ?? (this.currentMovies = new Dictionary<string, IList<string>>()); }

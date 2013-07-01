@@ -1,61 +1,44 @@
-﻿using Ninject.Extensions.Logging;
-
-namespace Illallangi.MovieFileNamer.Outputs
+﻿namespace Illallangi.MovieFileNamer.Outputs
 {
+    using Ninject.Extensions.Logging;
+
+    using System.Collections.Generic;
     using System.IO;
 
-    public sealed class SmtpOutput : IOutput
+    public sealed class SmtpOutput : BaseOutput<HtmlResultCollection, IHtmlResult>
     {
         #region Fields
 
-        private readonly ILogger currentLogger;
-        private readonly IConfig currentConfig;
-        private readonly IHtmlResult currentHtmlResult;
         private readonly ISmtpClient currentSmtpClient;
 
         #endregion
 
         #region Constructor
 
-        public SmtpOutput(ILogger logger, IConfig config, ISmtpClient smtpClient, IHtmlResult htmlResult)
+        public SmtpOutput(ILogger logger, IConfig config, ISmtpClient smtpClient, HtmlResultCollection htmlResults)
+            : base(logger, config, htmlResults)
         {
-            this.currentLogger = logger;
-            this.currentConfig = config;
             this.currentSmtpClient = smtpClient;
-            this.currentHtmlResult = htmlResult;
-            this.Logger.Debug("Constructor Complete");
         }
 
         #endregion
 
         #region Methods
 
-        public void Write()
+        public override void Write()
         {
-            if (null != this.HtmlResult.Html)
+            foreach (var result in this.Results)
             {
-                this.SmtpClient.SendEmail(this.Config.FromAddress, this.Config.ToAddress, this.Config.Subject, this.HtmlResult.Html);
+                if (null != result.Html)
+                {
+                    this.SmtpClient.SendEmail(this.Config.FromAddress, this.Config.ToAddress, string.Format(this.Config.Subject, result.Name), result.Html);
+                }
             }
         }
 
         #endregion
 
         #region Properties
-
-        private ILogger Logger
-        {
-            get { return this.currentLogger; }
-        }
-
-        private IHtmlResult HtmlResult
-        {
-            get { return this.currentHtmlResult; }
-        }
-
-        private IConfig Config
-        {
-            get { return this.currentConfig; }
-        }
 
         private ISmtpClient SmtpClient
         {

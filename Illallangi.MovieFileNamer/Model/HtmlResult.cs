@@ -9,11 +9,13 @@ namespace Illallangi.MovieFileNamer
         private string currentHtml;
         private readonly IConfig currentConfig;
         private readonly IResult currentResult;
+        private readonly string currentName;
 
         public HtmlResult(IConfig config, IResult result)
         {
             this.currentConfig = config;
             this.currentResult = result;
+            this.currentName = result.Name;
         }
 
         public string Html
@@ -24,6 +26,11 @@ namespace Illallangi.MovieFileNamer
                            ? this.currentHtml ?? (this.currentHtml = Razor.Parse(File.ReadAllText(this.Config.Template), this.Result))
                            : null;
             }
+        }
+
+        public string Name
+        {
+            get { return this.currentName; }
         }
 
         private IResult Result

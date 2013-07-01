@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using System.Linq;
 
     using Ninject.Extensions.Logging;
 
@@ -32,7 +33,7 @@
         {
             this.currentLogger = logger;
             this.currentOutputs = outputs;
-            this.Logger.Debug("Constructor Complete");
+            this.Logger.Debug("Constructor Complete with {0} outputs", this.Outputs.Count());
         }
 
         #endregion
