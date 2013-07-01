@@ -1,4 +1,5 @@
-﻿using Illallangi.MovieFileNamer.Model;
+﻿using System.Configuration;
+using Illallangi.MovieFileNamer.Model;
 using Ninject;
 using Ninject.Modules;
 using Ninject.Extensions.Conventions;
@@ -12,7 +13,7 @@ namespace Illallangi.MovieFileNamer
         public override void Load()
         {
             this.Bind<IConfig>()
-                .To<Config>()
+                .ToMethod(x => MovieFileNamerConfiguration.GetConfig())
                 .InSingletonScope();
 
             this.Bind<IResultSource>()
@@ -20,7 +21,7 @@ namespace Illallangi.MovieFileNamer
               .InSingletonScope();
 
             this.Bind<IHttpClientConfig>()
-                .To<Config>()
+                .To<MovieFileNamerConfiguration>()
                 .InSingletonScope();
 
             this.Bind<IHtmlResult>()
@@ -40,7 +41,7 @@ namespace Illallangi.MovieFileNamer
                 .InSingletonScope();
 
             this.Bind<ISmtpClientConfig>()
-                .To<Config>()
+                .ToMethod(x => x.Kernel.Get<IConfig>())
                 .InSingletonScope();
 
             this.Bind(x => x.FromThisAssembly()

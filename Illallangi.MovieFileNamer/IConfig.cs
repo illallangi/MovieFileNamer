@@ -1,6 +1,6 @@
 ﻿namespace Illallangi.MovieFileNamer
 {
-    public interface IConfig
+    public interface IConfig : ISmtpClientConfig, IHttpClientConfig
     {
         string Template { get; }
         string FromAddress { get; }
