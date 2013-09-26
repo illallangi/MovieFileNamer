@@ -94,3 +94,7 @@ packages/
 
 !packages/repositories.config
 !.nuget/nuget.exe
+
+artifacts/
+build/
+msbuild.log
