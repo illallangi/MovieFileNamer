@@ -19,7 +19,12 @@
     <Light Include="$(MSBuildProjectDirectory)\tools\wix\light.exe" />
   </ItemGroup>
 
-  <Target Name="Version">
+  <Target Name="Clean">
+    <RemoveDir Directories="$(BuildDir)" />
+    <RemoveDir Directories="$(ArtifactsDir)" />
+  </Target>
+  
+  <Target Name="Version" DependsOnTargets="Clean">
     <Message Text="=========== Version ===========" Importance="High" />
 
     <GitVersion LocalPath="$(MSBuildProjectDirectory)" Condition=" '$(GitCommitHash)' == '' ">
