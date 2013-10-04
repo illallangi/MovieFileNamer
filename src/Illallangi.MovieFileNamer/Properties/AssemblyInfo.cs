@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyProduct("Movie File Namer")]
 [assembly: AssemblyCopyright("Copyright © Illallangi Enterprises 2013")]
 [assembly: ComVisible(false)]
-[assembly: AssemblyInformationalVersion("Built from hash \'88105bd\'")]
+[assembly: AssemblyInformationalVersion("Debug Build")]
 [assembly: Guid("42ae5747-b190-48df-9567-bc59fec67e1f")]
 [assembly: AssemblyVersion("0.0.0.1")]
 [assembly: AssemblyFileVersion("0.0.0.1")]

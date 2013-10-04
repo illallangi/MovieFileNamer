@@ -42,7 +42,8 @@
                   AssemblyInformationalVersion="Built from hash '$(GitCommitHash)'"
                   Guid="42ae5747-b190-48df-9567-bc59fec67e1f"
                   AssemblyVersion="$(Version)"
-                  AssemblyFileVersion="$(Version)" />
+                  AssemblyFileVersion="$(Version)" 
+                  Condition="$(Version) != '0.0.0.1'" />
   </Target>
 
   <Target Name="Compile" DependsOnTargets="Version">
