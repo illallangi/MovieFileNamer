@@ -123,7 +123,7 @@
 
     <MakeDir Directories="$(BuildDir)\wix" />
     <Exec Command='"@(Candle)" -nologo -wx -ext WixUIExtension -ext WixUtilExtension -dsource="$(BuildDir)\bin" -dfavicon="$(SourceDir)\Illallangi.MovieFileNamer\favicon.ico" -out "$(BuildDir)\wix\build.wixobj" "$(MSBuildProjectDirectory)\build.wxs"' />
-    <Exec Command='"@(Light)" -nologo -wx -ext WixUIExtension -ext WixUtilExtension -out "$(ArtifactsDir)\Illallangi Enterprises DropBox Start Menu Linker v$(Version).msi" -pdbout "$(BuildDir)\wix\build.wixpdb" "$(BuildDir)\wix\build.wixobj"' />
+    <Exec Command='"@(Light)" -nologo -wx -ext WixUIExtension -ext WixUtilExtension -out "$(ArtifactsDir)\Illallangi Enterprises Movie File Namer v$(Version).msi" -pdbout "$(BuildDir)\wix\build.wixpdb" "$(BuildDir)\wix\build.wixobj"' />
   </Target>
 
   <Target Name="All" DependsOnTargets="Zip;MSI">
