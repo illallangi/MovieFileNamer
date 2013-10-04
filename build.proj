@@ -3,11 +3,6 @@
   <Import Project="$(MSBuildProjectDirectory)\tools\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets"/>
   
   <PropertyGroup>
-  
-    <ProjectName>DropBox Start Menu Linker</ProjectName>
-    <ProjectId>DropBoxStartMenu</ProjectId>
-	<ProjectGuid>5bd68165-52d5-4190-9640-fc2d4e197956</ProjectGuid>
-
     <Configuration Condition="'$(Configuration)'==''">Release</Configuration>
     <Version>$(BUILD_NUMBER)</Version>
     <GitCommitHash>$(BUILD_VCS_NUMBER)</GitCommitHash>
@@ -17,7 +12,6 @@
     <SourceDir>$(MSBuildProjectDirectory)\src</SourceDir>
     <ArtifactsDir>$(MSBuildProjectDirectory)\artifacts</ArtifactsDir>
     <BuildDir>$(MSBuildProjectDirectory)\build</BuildDir>
-    
   </PropertyGroup>
 
   <ItemGroup>
@@ -33,15 +27,15 @@
     </GitVersion>
 
     <AssemblyInfo CodeLanguage="CS"
-                  OutputFile="$(SourceDir)\Illallangi.$(ProjectId)\Properties\AssemblyInfo.cs"
-                  AssemblyTitle="$(Name)"
+                  OutputFile="$(SourceDir)\Illallangi.MovieFileNamer\Properties\AssemblyInfo.cs"
+                  AssemblyTitle="Movie File Namer"
                   AssemblyDescription=""
                   AssemblyCompany="Illallangi Enterprises"
-                  AssemblyProduct="$(Name)"
+                  AssemblyProduct="Movie File Namer"
                   AssemblyCopyright="Copyright © Illallangi Enterprises 2013"
                   ComVisible="false"
                   AssemblyInformationalVersion="Built from hash '$(GitCommitHash)'"
-                  Guid="$(Guid)"
+                  Guid="42ae5747-b190-48df-9567-bc59fec67e1f"
                   AssemblyVersion="$(Version)"
                   AssemblyFileVersion="$(Version)" />
   </Target>
@@ -49,46 +43,69 @@
   <Target Name="Compile" DependsOnTargets="Version">
     <Message Text="=========== Compile ===========" Importance="High" />
 
-    <MSBuild Projects="$(SourceDir)\Illallangi.$(ProjectId).sln" Properties="Configuration=$(Configuration)" Targets="Rebuild" />
+    <MSBuild Projects="$(SourceDir)\Illallangi.MovieFileNamer.sln" Properties="Configuration=$(Configuration)" Targets="Rebuild" />
   </Target>
 
   <Target Name="Copy" DependsOnTargets="Compile">
     <Message Text="=========== Copy ===========" Importance="High" />
 
     <MakeDir Directories="$(BuildDir)\bin" />
-
-    <Copy SourceFiles="$(SourceDir)\Illallangi.DropBoxStartMenu\bin\$(Configuration)\Illallangi.DropBoxStartMenu.exe"
+    <Copy SourceFiles="$(SourceDir)\Illallangi.MovieFileNamer\bin\$(Configuration)\Illallangi.MovieFileNamer.exe"
           DestinationFolder="$(BuildDir)\bin" />
-
-    <Copy SourceFiles="$(SourceDir)\Illallangi.DropBoxStartMenu\bin\$(Configuration)\Illallangi.DropBoxStartMenu.exe.config"
+    <Copy SourceFiles="$(SourceDir)\Illallangi.MovieFileNamer\bin\$(Configuration)\Illallangi.MovieFileNamer.exe.config"
           DestinationFolder="$(BuildDir)\bin" />
-
-    <Copy SourceFiles="$(SourceDir)\Illallangi.DropBoxStartMenu\bin\$(Configuration)\Illallangi.FileBackedObject.dll"
+    <Copy SourceFiles="$(SourceDir)\Illallangi.MovieFileNamer\bin\$(Configuration)\Email.cshtml"
           DestinationFolder="$(BuildDir)\bin" />
-
-    <Copy SourceFiles="$(SourceDir)\Illallangi.DropBoxStartMenu\bin\$(Configuration)\Illallangi.ShellLink.dll"
+    <Copy SourceFiles="$(SourceDir)\Illallangi.MovieFileNamer\bin\$(Configuration)\Illallangi.FileBackedObject.dll"
           DestinationFolder="$(BuildDir)\bin" />
-
-    <Copy SourceFiles="$(SourceDir)\Illallangi.DropBoxStartMenu\bin\$(Configuration)\log4net.dll"
+    <Copy SourceFiles="$(SourceDir)\Illallangi.MovieFileNamer\bin\$(Configuration)\Illallangi.HttpClient.dll"
           DestinationFolder="$(BuildDir)\bin" />
-
-    <Copy SourceFiles="$(SourceDir)\Illallangi.DropBoxStartMenu\bin\$(Configuration)\log4net.xml"
+    <Copy SourceFiles="$(SourceDir)\Illallangi.MovieFileNamer\bin\$(Configuration)\Illallangi.NullLogger.dll"
           DestinationFolder="$(BuildDir)\bin" />
-
-    <Copy SourceFiles="$(SourceDir)\Illallangi.DropBoxStartMenu\bin\$(Configuration)\Ninject.dll"
+    <Copy SourceFiles="$(SourceDir)\Illallangi.MovieFileNamer\bin\$(Configuration)\Illallangi.SmtpClient.dll"
           DestinationFolder="$(BuildDir)\bin" />
-
-    <Copy SourceFiles="$(SourceDir)\Illallangi.DropBoxStartMenu\bin\$(Configuration)\Ninject.xml"
+    <Copy SourceFiles="$(SourceDir)\Illallangi.MovieFileNamer\bin\$(Configuration)\Illallangi.StringExtensions.dll"
           DestinationFolder="$(BuildDir)\bin" />
-
-    <Copy SourceFiles="$(SourceDir)\Illallangi.DropBoxStartMenu\bin\$(Configuration)\System.Data.SQLite.dll"
+    <Copy SourceFiles="$(SourceDir)\Illallangi.MovieFileNamer\bin\$(Configuration)\log4net.dll"
           DestinationFolder="$(BuildDir)\bin" />
-
-    <Copy SourceFiles="$(SourceDir)\Illallangi.DropBoxStartMenu\bin\$(Configuration)\System.Data.Sqlite.Linq.dll"
+    <Copy SourceFiles="$(SourceDir)\Illallangi.MovieFileNamer\bin\$(Configuration)\log4net.xml"
           DestinationFolder="$(BuildDir)\bin" />
-
-    <MakeDir Directories="$(BuildDir)\bin" />
-    <Copy SourceFiles="$(BinFiles)" DestinationFolder="$(BuildDir)\bin" />
+    <Copy SourceFiles="$(SourceDir)\Illallangi.MovieFileNamer\bin\$(Configuration)\Ninject.dll"
+          DestinationFolder="$(BuildDir)\bin" />
+    <Copy SourceFiles="$(SourceDir)\Illallangi.MovieFileNamer\bin\$(Configuration)\Ninject.xml"
+          DestinationFolder="$(BuildDir)\bin" />
+    <Copy SourceFiles="$(SourceDir)\Illallangi.MovieFileNamer\bin\$(Configuration)\Ninject.Extensions.Logging.dll"
+          DestinationFolder="$(BuildDir)\bin" />
+    <Copy SourceFiles="$(SourceDir)\Illallangi.MovieFileNamer\bin\$(Configuration)\Ninject.Extensions.Logging.xml"
+          DestinationFolder="$(BuildDir)\bin" />
+    <Copy SourceFiles="$(SourceDir)\Illallangi.MovieFileNamer\bin\$(Configuration)\Ninject.Extensions.Logging.Log4Net.dll"
+          DestinationFolder="$(BuildDir)\bin" />
+    <Copy SourceFiles="$(SourceDir)\Illallangi.MovieFileNamer\bin\$(Configuration)\Ninject.Extensions.Logging.Log4Net.xml"
+          DestinationFolder="$(BuildDir)\bin" />
+    <Copy SourceFiles="$(SourceDir)\Illallangi.MovieFileNamer\bin\$(Configuration)\Ninject.Extensions.Conventions.dll"
+          DestinationFolder="$(BuildDir)\bin" />
+    <Copy SourceFiles="$(SourceDir)\Illallangi.MovieFileNamer\bin\$(Configuration)\Ninject.Extensions.Conventions.xml"
+          DestinationFolder="$(BuildDir)\bin" />
+    <Copy SourceFiles="$(SourceDir)\Illallangi.MovieFileNamer\bin\$(Configuration)\Quartz.dll"
+          DestinationFolder="$(BuildDir)\bin" />
+    <Copy SourceFiles="$(SourceDir)\Illallangi.MovieFileNamer\bin\$(Configuration)\Quartz.xml"
+          DestinationFolder="$(BuildDir)\bin" />
+    <Copy SourceFiles="$(SourceDir)\Illallangi.MovieFileNamer\bin\$(Configuration)\Common.Logging.dll"
+          DestinationFolder="$(BuildDir)\bin" />
+    <Copy SourceFiles="$(SourceDir)\Illallangi.MovieFileNamer\bin\$(Configuration)\Common.Logging.xml"
+          DestinationFolder="$(BuildDir)\bin" />
+    <Copy SourceFiles="$(SourceDir)\Illallangi.MovieFileNamer\bin\$(Configuration)\RazorEngine.dll"
+          DestinationFolder="$(BuildDir)\bin" />
+    <Copy SourceFiles="$(SourceDir)\Illallangi.MovieFileNamer\bin\$(Configuration)\RazorEngine.xml"
+          DestinationFolder="$(BuildDir)\bin" />
+    <Copy SourceFiles="$(SourceDir)\Illallangi.MovieFileNamer\bin\$(Configuration)\System.Web.Razor.dll"
+          DestinationFolder="$(BuildDir)\bin" />
+    <Copy SourceFiles="$(SourceDir)\Illallangi.MovieFileNamer\bin\$(Configuration)\System.Web.Razor.xml"
+          DestinationFolder="$(BuildDir)\bin" />
+    <Copy SourceFiles="$(SourceDir)\Illallangi.MovieFileNamer\bin\$(Configuration)\Topshelf.dll"
+          DestinationFolder="$(BuildDir)\bin" />
+    <Copy SourceFiles="$(SourceDir)\Illallangi.MovieFileNamer\bin\$(Configuration)\Topshelf.Log4Net.dll"
+          DestinationFolder="$(BuildDir)\bin" />
   </Target>
 
   <Target Name="Zip" DependsOnTargets="Copy">
@@ -98,15 +115,15 @@
       <Output ItemName="ZipFiles" TaskParameter="Include"/>
     </CreateItem>
 
-    <Zip ZipFileName="$(ArtifactsDir)\Illallangi Enterprises $(ProjectName) v$(Version).zip" WorkingDirectory="$(BuildDir)\bin" Files="@(ZipFiles)" />
+    <Zip ZipFileName="$(ArtifactsDir)\Illallangi Enterprises Movie File Namer v$(Version).zip" WorkingDirectory="$(BuildDir)\bin" Files="@(ZipFiles)" />
   </Target>
 
   <Target Name="MSI" DependsOnTargets="Copy">
     <Message Text="=========== MSI ===========" Importance="High" />
 
     <MakeDir Directories="$(BuildDir)\wix" />
-    <Exec Command='"@(Candle)" -nologo -wx -dsource="$(BuildDir)\bin" -dfavicon="$(SourceDir)\Illallangi.$(ProjectId)\favicon.ico" -out "$(BuildDir)\wix\build.wixobj" "$(MSBuildProjectDirectory)\build.wxs"' />
-    <Exec Command='"@(Light)" -nologo -wx -ext WixUIExtension -out "$(ArtifactsDir)\Illallangi Enterprises DropBox Start Menu Linker v$(Version).msi" -pdbout "$(BuildDir)\wix\build.wixpdb" "$(BuildDir)\wix\build.wixobj"' />
+    <Exec Command='"@(Candle)" -nologo -wx -ext WixUIExtension -ext WixUtilExtension -dsource="$(BuildDir)\bin" -dfavicon="$(SourceDir)\Illallangi.MovieFileNamer\favicon.ico" -out "$(BuildDir)\wix\build.wixobj" "$(MSBuildProjectDirectory)\build.wxs"' />
+    <Exec Command='"@(Light)" -nologo -wx -ext WixUIExtension -ext WixUtilExtension -out "$(ArtifactsDir)\Illallangi Enterprises DropBox Start Menu Linker v$(Version).msi" -pdbout "$(BuildDir)\wix\build.wixpdb" "$(BuildDir)\wix\build.wixobj"' />
   </Target>
 
   <Target Name="All" DependsOnTargets="Zip;MSI">

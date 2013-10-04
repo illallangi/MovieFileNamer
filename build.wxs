@@ -44,7 +44,7 @@
       </Directory>
     </Directory>
 
-    <Icon Id="favicon.ico" SourceFile="$(var.src)\favicon.ico" />
+    <Icon Id="favicon.ico" SourceFile="$(var.favicon)" />
     <Property Id="ALLUSERS" Value="1" />
     <Property Id="ARPPRODUCTICON" Value="favicon.ico" />
     <Property Id="ARPNOMODIFY" Value="1" />
@@ -52,9 +52,9 @@
 
     <Feature Id='Complete' Level='1' Title='$(var.AppName)'>
       <Component Id="IllallangiMovieFileNamerExeComponent" Directory="SOFTWAREDIR">
-        <File Id="IllallangiMovieFileNamerExeFile" KeyPath="yes" Source="$(var.bin)\Illallangi.MovieFileNamer.exe" />
-        <File Id="IllallangiMovieFileNamerExeConfigFile" Source="$(var.bin)\Illallangi.MovieFileNamer.exe.config" />
-        <File Id="EmailCshtmlFile" Source="$(var.bin)\Email.cshtml" />
+        <File Id="IllallangiMovieFileNamerExeFile" KeyPath="yes" Source="$(var.source)\Illallangi.MovieFileNamer.exe" />
+        <File Id="IllallangiMovieFileNamerExeConfigFile" Source="$(var.source)\Illallangi.MovieFileNamer.exe.config" />
+        <File Id="EmailCshtmlFile" Source="$(var.source)\Email.cshtml" />
         <util:XmlFile Id="SetTHEMOVIEDBAPIKEY"
                           Action="setValue"
                           ElementPath="//configuration/MovieFileNamerConfiguration/@TheMovieDbApiKey"
@@ -75,61 +75,61 @@
                         Wait="no" />
       </Component>
       <Component Id="IllallangiFileBackedObjectDllComponent" Directory="SOFTWAREDIR">
-        <File Id="IllallangiFileBackedObjectDllFile" KeyPath="yes" Source="$(var.bin)\Illallangi.FileBackedObject.dll" />
+        <File Id="IllallangiFileBackedObjectDllFile" KeyPath="yes" Source="$(var.source)\Illallangi.FileBackedObject.dll" />
       </Component>
       <Component Id="IllallangiHttpClientDllComponent" Directory="SOFTWAREDIR">
-        <File Id="IllallangiHttpClientDllFile" KeyPath="yes" Source="$(var.bin)\Illallangi.HttpClient.dll" />
+        <File Id="IllallangiHttpClientDllFile" KeyPath="yes" Source="$(var.source)\Illallangi.HttpClient.dll" />
       </Component>
       <Component Id="IllallangiNullLoggerDllComponent" Directory="SOFTWAREDIR">
-        <File Id="IllallangiNullLoggerDllFile" KeyPath="yes" Source="$(var.bin)\Illallangi.NullLogger.dll" />
+        <File Id="IllallangiNullLoggerDllFile" KeyPath="yes" Source="$(var.source)\Illallangi.NullLogger.dll" />
       </Component>
       <Component Id="IllallangiSmtpClientDllComponent" Directory="SOFTWAREDIR">
-        <File Id="IllallangiSmtpClientDllFile" KeyPath="yes" Source="$(var.bin)\Illallangi.SmtpClient.dll" />
+        <File Id="IllallangiSmtpClientDllFile" KeyPath="yes" Source="$(var.source)\Illallangi.SmtpClient.dll" />
       </Component>
       <Component Id="IllallangiStringExtensionsDllComponent" Directory="SOFTWAREDIR">
-        <File Id="IllallangiStringExtensionsDllFile" KeyPath="yes" Source="$(var.bin)\Illallangi.StringExtensions.dll" />
+        <File Id="IllallangiStringExtensionsDllFile" KeyPath="yes" Source="$(var.source)\Illallangi.StringExtensions.dll" />
       </Component>
       <Component Id="log4netDllComponent" Directory="SOFTWAREDIR">
-        <File Id="log4netDllFile" KeyPath="yes" Source="$(var.bin)\log4net.dll" />
-        <File Id="log4netXmlFile" Source="$(var.bin)\log4net.xml" />
+        <File Id="log4netDllFile" KeyPath="yes" Source="$(var.source)\log4net.dll" />
+        <File Id="log4netXmlFile" Source="$(var.source)\log4net.xml" />
       </Component>
       <Component Id="NinjectDllComponent" Directory="SOFTWAREDIR">
-        <File Id="NinjectDllFile" KeyPath="yes" Source="$(var.bin)\Ninject.dll" />
-        <File Id="NinjectXmlFile" Source="$(var.bin)\Ninject.xml" />
+        <File Id="NinjectDllFile" KeyPath="yes" Source="$(var.source)\Ninject.dll" />
+        <File Id="NinjectXmlFile" Source="$(var.source)\Ninject.xml" />
       </Component>
       <Component Id="NinjectExtensionsLoggingDllComponent" Directory="SOFTWAREDIR">
-        <File Id="NinjectExtensionsLoggingDllFile" KeyPath="yes" Source="$(var.bin)\Ninject.Extensions.Logging.dll" />
-        <File Id="NinjectExtensionsLoggingXmlFile" Source="$(var.bin)\Ninject.Extensions.Logging.xml" />
+        <File Id="NinjectExtensionsLoggingDllFile" KeyPath="yes" Source="$(var.source)\Ninject.Extensions.Logging.dll" />
+        <File Id="NinjectExtensionsLoggingXmlFile" Source="$(var.source)\Ninject.Extensions.Logging.xml" />
       </Component>
       <Component Id="NinjectExtensionsLoggingLog4NetDllComponent" Directory="SOFTWAREDIR">
-        <File Id="NinjectExtensionsLoggingLog4NetDllFile" KeyPath="yes" Source="$(var.bin)\Ninject.Extensions.Logging.Log4Net.dll" />
-        <File Id="NinjectExtensionsLoggingLog4NetXmlFile" Source="$(var.bin)\Ninject.Extensions.Logging.Log4Net.xml" />
+        <File Id="NinjectExtensionsLoggingLog4NetDllFile" KeyPath="yes" Source="$(var.source)\Ninject.Extensions.Logging.Log4Net.dll" />
+        <File Id="NinjectExtensionsLoggingLog4NetXmlFile" Source="$(var.source)\Ninject.Extensions.Logging.Log4Net.xml" />
       </Component>
       <Component Id="NinjectExtensionsConventionsDllComponent" Directory="SOFTWAREDIR">
-        <File Id="NinjectExtensionsConventionsDllFile" KeyPath="yes" Source="$(var.bin)\Ninject.Extensions.Conventions.dll" />
-        <File Id="NinjectExtensionsConventionsXmlFile" Source="$(var.bin)\Ninject.Extensions.Conventions.xml" />
+        <File Id="NinjectExtensionsConventionsDllFile" KeyPath="yes" Source="$(var.source)\Ninject.Extensions.Conventions.dll" />
+        <File Id="NinjectExtensionsConventionsXmlFile" Source="$(var.source)\Ninject.Extensions.Conventions.xml" />
       </Component>
       <Component Id="QuartzDllComponent" Directory="SOFTWAREDIR">
-        <File Id="QuartzDllFile" KeyPath="yes" Source="$(var.bin)\Quartz.dll" />
-        <File Id="QuartzXmlFile" Source="$(var.bin)\Quartz.xml" />
+        <File Id="QuartzDllFile" KeyPath="yes" Source="$(var.source)\Quartz.dll" />
+        <File Id="QuartzXmlFile" Source="$(var.source)\Quartz.xml" />
       </Component>
       <Component Id="CommonLoggingDllComponent" Directory="SOFTWAREDIR">
-        <File Id="CommonLoggingDllFile" KeyPath="yes" Source="$(var.bin)\Common.Logging.dll" />
-        <File Id="CommonLoggingXmlFile" Source="$(var.bin)\Common.Logging.xml" />
+        <File Id="CommonLoggingDllFile" KeyPath="yes" Source="$(var.source)\Common.Logging.dll" />
+        <File Id="CommonLoggingXmlFile" Source="$(var.source)\Common.Logging.xml" />
       </Component>
       <Component Id="RazorEngineDllComponent" Directory="SOFTWAREDIR">
-        <File Id="RazorEngineDllFile" KeyPath="yes" Source="$(var.bin)\RazorEngine.dll" />
-        <File Id="RazorEngineXmlFile" Source="$(var.bin)\RazorEngine.xml" />
+        <File Id="RazorEngineDllFile" KeyPath="yes" Source="$(var.source)\RazorEngine.dll" />
+        <File Id="RazorEngineXmlFile" Source="$(var.source)\RazorEngine.xml" />
       </Component>
       <Component Id="SystemWebRazorDllComponent" Directory="SOFTWAREDIR">
-        <File Id="SystemWebRazorDllFile" KeyPath="yes" Source="$(var.bin)\System.Web.Razor.dll" />
-        <File Id="SystemWebRazorXmlFile" Source="$(var.bin)\System.Web.Razor.xml" />
+        <File Id="SystemWebRazorDllFile" KeyPath="yes" Source="$(var.source)\System.Web.Razor.dll" />
+        <File Id="SystemWebRazorXmlFile" Source="$(var.source)\System.Web.Razor.xml" />
       </Component>
       <Component Id="TopShelfDllComponent" Directory="SOFTWAREDIR">
-        <File Id="TopShelfDllFile" KeyPath="yes" Source="$(var.bin)\Topshelf.dll" />
+        <File Id="TopShelfDllFile" KeyPath="yes" Source="$(var.source)\Topshelf.dll" />
       </Component>
       <Component Id="TopShelfLog4NetDllComponent" Directory="SOFTWAREDIR">
-        <File Id="TopShelfLog4NetDllFile" KeyPath="yes" Source="$(var.bin)\Topshelf.Log4Net.dll" />
+        <File Id="TopShelfLog4NetDllFile" KeyPath="yes" Source="$(var.source)\Topshelf.Log4Net.dll" />
       </Component>
 
       <ComponentRef Id='Empty' />
