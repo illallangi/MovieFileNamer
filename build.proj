@@ -1,0 +1,116 @@
+<Project ToolsVersion="4.0" DefaultTargets="All" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <Import Project="$(MSBuildProjectDirectory)\tools\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets"/>
+  
+  <PropertyGroup>
+  
+    <ProjectName>DropBox Start Menu Linker</ProjectName>
+    <ProjectId>DropBoxStartMenu</ProjectId>
+	<ProjectGuid>5bd68165-52d5-4190-9640-fc2d4e197956</ProjectGuid>
+
+    <Configuration Condition="'$(Configuration)'==''">Release</Configuration>
+    <Version>$(BUILD_NUMBER)</Version>
+    <GitCommitHash>$(BUILD_VCS_NUMBER)</GitCommitHash>
+    <GitCommitHash Condition=" '$(GitCommitHash)' != '' ">$(GitCommitHash.Substring(0, 8))</GitCommitHash>
+    <!-- dev config -->
+    <Version Condition=" '$(Version)' == '' ">0.0.0.1</Version>
+    <SourceDir>$(MSBuildProjectDirectory)\src</SourceDir>
+    <ArtifactsDir>$(MSBuildProjectDirectory)\artifacts</ArtifactsDir>
+    <BuildDir>$(MSBuildProjectDirectory)\build</BuildDir>
+    
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Candle Include="$(MSBuildProjectDirectory)\tools\wix\candle.exe" />
+    <Light Include="$(MSBuildProjectDirectory)\tools\wix\light.exe" />
+  </ItemGroup>
+
+  <Target Name="Version">
+    <Message Text="=========== Version ===========" Importance="High" />
+
+    <GitVersion LocalPath="$(MSBuildProjectDirectory)" Condition=" '$(GitCommitHash)' == '' ">
+      <Output TaskParameter="CommitHash" PropertyName="GitCommitHash" />
+    </GitVersion>
+
+    <AssemblyInfo CodeLanguage="CS"
+                  OutputFile="$(SourceDir)\Illallangi.$(ProjectId)\Properties\AssemblyInfo.cs"
+                  AssemblyTitle="$(Name)"
+                  AssemblyDescription=""
+                  AssemblyCompany="Illallangi Enterprises"
+                  AssemblyProduct="$(Name)"
+                  AssemblyCopyright="Copyright © Illallangi Enterprises 2013"
+                  ComVisible="false"
+                  AssemblyInformationalVersion="Built from hash '$(GitCommitHash)'"
+                  Guid="$(Guid)"
+                  AssemblyVersion="$(Version)"
+                  AssemblyFileVersion="$(Version)" />
+  </Target>
+
+  <Target Name="Compile" DependsOnTargets="Version">
+    <Message Text="=========== Compile ===========" Importance="High" />
+
+    <MSBuild Projects="$(SourceDir)\Illallangi.$(ProjectId).sln" Properties="Configuration=$(Configuration)" Targets="Rebuild" />
+  </Target>
+
+  <Target Name="Copy" DependsOnTargets="Compile">
+    <Message Text="=========== Copy ===========" Importance="High" />
+
+    <MakeDir Directories="$(BuildDir)\bin" />
+
+    <Copy SourceFiles="$(SourceDir)\Illallangi.DropBoxStartMenu\bin\$(Configuration)\Illallangi.DropBoxStartMenu.exe"
+          DestinationFolder="$(BuildDir)\bin" />
+
+    <Copy SourceFiles="$(SourceDir)\Illallangi.DropBoxStartMenu\bin\$(Configuration)\Illallangi.DropBoxStartMenu.exe.config"
+          DestinationFolder="$(BuildDir)\bin" />
+
+    <Copy SourceFiles="$(SourceDir)\Illallangi.DropBoxStartMenu\bin\$(Configuration)\Illallangi.FileBackedObject.dll"
+          DestinationFolder="$(BuildDir)\bin" />
+
+    <Copy SourceFiles="$(SourceDir)\Illallangi.DropBoxStartMenu\bin\$(Configuration)\Illallangi.ShellLink.dll"
+          DestinationFolder="$(BuildDir)\bin" />
+
+    <Copy SourceFiles="$(SourceDir)\Illallangi.DropBoxStartMenu\bin\$(Configuration)\log4net.dll"
+          DestinationFolder="$(BuildDir)\bin" />
+
+    <Copy SourceFiles="$(SourceDir)\Illallangi.DropBoxStartMenu\bin\$(Configuration)\log4net.xml"
+          DestinationFolder="$(BuildDir)\bin" />
+
+    <Copy SourceFiles="$(SourceDir)\Illallangi.DropBoxStartMenu\bin\$(Configuration)\Ninject.dll"
+          DestinationFolder="$(BuildDir)\bin" />
+
+    <Copy SourceFiles="$(SourceDir)\Illallangi.DropBoxStartMenu\bin\$(Configuration)\Ninject.xml"
+          DestinationFolder="$(BuildDir)\bin" />
+
+    <Copy SourceFiles="$(SourceDir)\Illallangi.DropBoxStartMenu\bin\$(Configuration)\System.Data.SQLite.dll"
+          DestinationFolder="$(BuildDir)\bin" />
+
+    <Copy SourceFiles="$(SourceDir)\Illallangi.DropBoxStartMenu\bin\$(Configuration)\System.Data.Sqlite.Linq.dll"
+          DestinationFolder="$(BuildDir)\bin" />
+
+    <MakeDir Directories="$(BuildDir)\bin" />
+    <Copy SourceFiles="$(BinFiles)" DestinationFolder="$(BuildDir)\bin" />
+  </Target>
+
+  <Target Name="Zip" DependsOnTargets="Copy">
+    <Message Text="=========== Zip ===========" Importance="High" />
+
+    <CreateItem Include="$(BuildDir)\bin\*.*" >
+      <Output ItemName="ZipFiles" TaskParameter="Include"/>
+    </CreateItem>
+
+    <Zip ZipFileName="$(ArtifactsDir)\Illallangi Enterprises $(ProjectName) v$(Version).zip" WorkingDirectory="$(BuildDir)\bin" Files="@(ZipFiles)" />
+  </Target>
+
+  <Target Name="MSI" DependsOnTargets="Copy">
+    <Message Text="=========== MSI ===========" Importance="High" />
+
+    <MakeDir Directories="$(BuildDir)\wix" />
+    <Exec Command='"@(Candle)" -nologo -wx -dsource="$(BuildDir)\bin" -dfavicon="$(SourceDir)\Illallangi.$(ProjectId)\favicon.ico" -out "$(BuildDir)\wix\build.wixobj" "$(MSBuildProjectDirectory)\build.wxs"' />
+    <Exec Command='"@(Light)" -nologo -wx -ext WixUIExtension -out "$(ArtifactsDir)\Illallangi Enterprises DropBox Start Menu Linker v$(Version).msi" -pdbout "$(BuildDir)\wix\build.wixpdb" "$(BuildDir)\wix\build.wixobj"' />
+  </Target>
+
+  <Target Name="All" DependsOnTargets="Zip;MSI">
+    <Message Text="=========== All Done ===========" Importance="High" />
+  </Target>
+
+</Project>
