@@ -58,6 +58,8 @@
     <MakeDir Directories="$(BuildDir)\bin" />
     <Copy SourceFiles="$(SourceDir)\Illallangi.MovieFileNamer\bin\$(Configuration)\Illallangi.MovieFileNamer.exe"
           DestinationFolder="$(BuildDir)\bin" />
+    <Exec Command='"@(SignTool)" sign /sha1 $(Certificate) /sm /t http://timestamp.verisign.com/scripts/timstamp.dll "$(BuildDir)\bin\Illallangi.MovieFileNamer.exe"'
+          Condition="$(Certificate) != ''"/>
     <Copy SourceFiles="$(SourceDir)\Illallangi.MovieFileNamer\bin\$(Configuration)\Illallangi.MovieFileNamer.exe.config"
           DestinationFolder="$(BuildDir)\bin" />
     <Copy SourceFiles="$(SourceDir)\Illallangi.MovieFileNamer\bin\$(Configuration)\Email.cshtml"
@@ -130,6 +132,8 @@
     <MakeDir Directories="$(BuildDir)\wix" />
     <Exec Command='"@(Candle)" -nologo -wx -ext WixUIExtension -ext WixUtilExtension -dsource="$(BuildDir)\bin" -dfavicon="$(SourceDir)\Illallangi.MovieFileNamer\favicon.ico" -out "$(BuildDir)\wix\build.wixobj" "$(MSBuildProjectDirectory)\build.wxs"' />
     <Exec Command='"@(Light)" -nologo -wx -ext WixUIExtension -ext WixUtilExtension -out "$(ArtifactsDir)\Illallangi Enterprises Movie File Namer v$(Version).msi" -pdbout "$(BuildDir)\wix\build.wixpdb" "$(BuildDir)\wix\build.wixobj"' />
+    <Exec Command='"@(SignTool)" sign /sha1 $(Certificate) /sm /t http://timestamp.verisign.com/scripts/timstamp.dll "$(ArtifactsDir)\Illallangi Enterprises Movie File Namer v$(Version).msi"'
+          Condition="$(Certificate) != ''"/>
   </Target>
 
   <Target Name="All" DependsOnTargets="Zip;MSI">
