@@ -17,6 +17,7 @@
   <ItemGroup>
     <Candle Include="$(MSBuildProjectDirectory)\tools\wix\candle.exe" />
     <Light Include="$(MSBuildProjectDirectory)\tools\wix\light.exe" />
+    <SignTool Include="$(MSBuildProjectDirectory)\tools\winsdk\signtool.exe" />
   </ItemGroup>
 
   <Target Name="Clean">
