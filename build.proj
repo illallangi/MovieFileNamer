@@ -69,8 +69,6 @@
           DestinationFolder="$(BuildDir)\bin" />
     <Copy SourceFiles="$(SourceDir)\Illallangi.MovieFileNamer\bin\$(Configuration)\Illallangi.HttpClient.dll"
           DestinationFolder="$(BuildDir)\bin" />
-    <Copy SourceFiles="$(SourceDir)\Illallangi.MovieFileNamer\bin\$(Configuration)\Illallangi.NullLogger.dll"
-          DestinationFolder="$(BuildDir)\bin" />
     <Copy SourceFiles="$(SourceDir)\Illallangi.MovieFileNamer\bin\$(Configuration)\Illallangi.SmtpClient.dll"
           DestinationFolder="$(BuildDir)\bin" />
     <Copy SourceFiles="$(SourceDir)\Illallangi.MovieFileNamer\bin\$(Configuration)\Illallangi.StringExtensions.dll"

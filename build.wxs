@@ -80,9 +80,6 @@
       <Component Id="IllallangiHttpClientDllComponent" Directory="SOFTWAREDIR">
         <File Id="IllallangiHttpClientDllFile" KeyPath="yes" Source="$(var.source)\Illallangi.HttpClient.dll" />
       </Component>
-      <Component Id="IllallangiNullLoggerDllComponent" Directory="SOFTWAREDIR">
-        <File Id="IllallangiNullLoggerDllFile" KeyPath="yes" Source="$(var.source)\Illallangi.NullLogger.dll" />
-      </Component>
       <Component Id="IllallangiSmtpClientDllComponent" Directory="SOFTWAREDIR">
         <File Id="IllallangiSmtpClientDllFile" KeyPath="yes" Source="$(var.source)\Illallangi.SmtpClient.dll" />
       </Component>
