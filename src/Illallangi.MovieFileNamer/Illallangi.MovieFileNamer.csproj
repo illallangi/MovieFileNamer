@@ -48,6 +48,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Illallangi.HttpClient.1.0.0.2\lib\Illallangi.HttpClient.dll</HintPath>
     </Reference>
+    <Reference Include="Illallangi.NullLogger">
+      <HintPath>..\packages\Illallangi.NullLogger.1.0.0.2\lib\Illallangi.NullLogger.dll</HintPath>
+    </Reference>
     <Reference Include="Illallangi.SmtpClient, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Illallangi.SmtpClient.1.0.0.2\lib\Illallangi.SmtpClient.dll</HintPath>
