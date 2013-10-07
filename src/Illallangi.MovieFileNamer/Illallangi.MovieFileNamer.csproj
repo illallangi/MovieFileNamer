@@ -40,46 +40,49 @@
     <Reference Include="Common.Logging">
       <HintPath>..\packages\Common.Logging.2.1.2\lib\net40\Common.Logging.dll</HintPath>
     </Reference>
-    <Reference Include="Illallangi.FileBackedObject, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Illallangi.FileBackedObject, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Illallangi.FileBackedObject.1.1.0-CI00006\lib\net35\Illallangi.FileBackedObject.dll</HintPath>
+      <HintPath>..\packages\Illallangi.FileBackedObject.1.0.0.3\lib\Illallangi.FileBackedObject.dll</HintPath>
     </Reference>
-    <Reference Include="Illallangi.HttpClient, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Illallangi.HttpClient, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Illallangi.HttpClient.1.0.0-CI00001\lib\net45\Illallangi.HttpClient.dll</HintPath>
+      <HintPath>..\packages\Illallangi.HttpClient.1.0.0.2\lib\Illallangi.HttpClient.dll</HintPath>
     </Reference>
-    <Reference Include="Illallangi.NullLogger, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Illallangi.SmtpClient, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Illallangi.NullLogger.1.0.0-CI00002\lib\net45\Illallangi.NullLogger.dll</HintPath>
+      <HintPath>..\packages\Illallangi.SmtpClient.1.0.0.2\lib\Illallangi.SmtpClient.dll</HintPath>
     </Reference>
-    <Reference Include="Illallangi.SmtpClient, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Illallangi.StringExtensions, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Illallangi.SmtpClient.1.0.0-CI00001\lib\net45\Illallangi.SmtpClient.dll</HintPath>
+      <HintPath>..\packages\Illallangi.StringExtensions.1.0.0.2\lib\Illallangi.StringExtensions.dll</HintPath>
     </Reference>
-    <Reference Include="Illallangi.StringExtensions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="log4net, Version=1.2.12.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Illallangi.StringExtensions.1.0.0-CI00000\lib\net45\Illallangi.StringExtensions.dll</HintPath>
+      <HintPath>..\packages\log4net.2.0.2\lib\net40-full\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="log4net">
-      <HintPath>..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
+    <Reference Include="Ninject, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Ninject.3.0.2-unstable-9037\lib\net45-full\Ninject.dll</HintPath>
     </Reference>
-    <Reference Include="Ninject">
-      <HintPath>..\packages\Ninject.3.0.2-unstable-9\lib\net45-full\Ninject.dll</HintPath>
+    <Reference Include="Ninject.Extensions.Conventions, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Ninject.Extensions.Conventions.3.0.2-unstable-9010\lib\net45-full\Ninject.Extensions.Conventions.dll</HintPath>
     </Reference>
-    <Reference Include="Ninject.Extensions.Conventions">
-      <HintPath>..\packages\ninject.extensions.conventions.3.0.2-unstable-3\lib\net45-full\Ninject.Extensions.Conventions.dll</HintPath>
+    <Reference Include="Ninject.Extensions.Logging, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Ninject.Extensions.Logging.3.0.2-unstable-9007\lib\net45-full\Ninject.Extensions.Logging.dll</HintPath>
     </Reference>
-    <Reference Include="Ninject.Extensions.Logging">
-      <HintPath>..\packages\Ninject.Extensions.Logging.3.0.2-unstable-3\lib\net45-full\Ninject.Extensions.Logging.dll</HintPath>
+    <Reference Include="Ninject.Extensions.Logging.Log4Net, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Ninject.Extensions.Logging.Log4net.3.0.2-unstable-9007\lib\net45-full\Ninject.Extensions.Logging.Log4Net.dll</HintPath>
     </Reference>
-    <Reference Include="Ninject.Extensions.Logging.Log4Net">
-      <HintPath>..\packages\Ninject.Extensions.Logging.Log4net.3.0.2-unstable-3\lib\net45-full\Ninject.Extensions.Logging.Log4Net.dll</HintPath>
+    <Reference Include="Quartz, Version=2.2.400.0, Culture=neutral, PublicKeyToken=f6b8c98a402cc8a4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Quartz.2.2\lib\net40\Quartz.dll</HintPath>
     </Reference>
-    <Reference Include="Quartz">
-      <HintPath>..\packages\Quartz.2.1.2\lib\net40\Quartz.dll</HintPath>
-    </Reference>
-    <Reference Include="RazorEngine">
-      <HintPath>..\packages\RazorEngine.3.2.0\lib\net40\RazorEngine.dll</HintPath>
+    <Reference Include="RazorEngine, Version=3.3.0.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\RazorEngine.3.3.0\lib\net40\RazorEngine.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -88,12 +91,12 @@
     <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20715.0\lib\net40\System.Web.Razor.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.0.0-rc1\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
     <Reference Include="Topshelf">
       <HintPath>..\packages\Topshelf.3.1.1\lib\net40-full\Topshelf.dll</HintPath>
     </Reference>
