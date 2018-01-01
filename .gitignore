@@ -98,3 +98,4 @@ packages/
 artifacts/
 build/
 msbuild.log
+src/.vs
