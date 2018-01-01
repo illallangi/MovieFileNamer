@@ -13,7 +13,7 @@ namespace Illallangi.MovieFileNamer.Checks
             foreach (var file in directory.GetFiles().Where(file =>
                 {
                     var fileName = Path.GetFileName(file);
-                    return fileName != null && !fileName.StartsWith(entry.FileName, StringComparison.InvariantCultureIgnoreCase);
+                    return fileName != null && !fileName.StartsWith(entry.FileName.Replace("_",""), StringComparison.InvariantCultureIgnoreCase);
                 }))
             {
                 result.AddError(directory.GetFileName(), @"""{0}"" should start with ""{1}""", Path.GetFileName(file), entry.FileName);

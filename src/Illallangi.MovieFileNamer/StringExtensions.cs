@@ -7,8 +7,8 @@ namespace Illallangi.MovieFileNamer
         public static string GetTitle(this string path)
         {
             return path.Contains("(")
-                       ? path.Substring(0, path.IndexOf("(", StringComparison.InvariantCulture)).Trim()
-                       : path;
+                       ? path.Substring(0, path.IndexOf("(", StringComparison.InvariantCulture)).Replace("_", "").Trim()
+                       : path.Replace("_", "").Trim();
         }
 
         public static string GetYear(this string path)

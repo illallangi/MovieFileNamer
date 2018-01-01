@@ -10,7 +10,7 @@ namespace Illallangi.MovieFileNamer.Model
         {
             return string.Format("{0} ({1})", HttpUtility.HtmlDecode(this.title)
                 .Replace("L!f", "Lif")
-                .Replace(@":", string.Empty)
+                .Replace(@":", "_")
                 .Replace(@"?", string.Empty)
                 .Replace(@"!", string.Empty)
                 .Replace(@"*", string.Empty)
